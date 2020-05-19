@@ -24,7 +24,7 @@ class ApartamentsController extends Controller
      */
     public function create()
     {
-        //
+        //return view('Apartament/create');
     }
 
     /**
@@ -35,7 +35,17 @@ class ApartamentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'persons' => ['required','min:1'],
+            'notes' => 'nullable'
+        ]);
+
+        $apartament = new Apartaments($data);
+        $apartament->save();
+
+        return redirect()->route('apartaments.index');
     }
 
     /**
