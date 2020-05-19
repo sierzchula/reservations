@@ -15,11 +15,7 @@ class ApartametnsTest extends TestCase
     {
         //$this->withoutExceptionHandling();
 
-        $this->attributes = [
-            'name' => $this->faker->name,
-            'address' => $this->faker->address,
-            'persons' => rand(1,4)
-        ];
+        $this->attributes = factory('App\Apartaments')->raw();
         
         $this->post('/apartaments', $this->attributes)->assertRedirect('/apartaments');
 

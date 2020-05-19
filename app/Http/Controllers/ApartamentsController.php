@@ -24,7 +24,7 @@ class ApartamentsController extends Controller
      */
     public function create()
     {
-        //return view('Apartament/create');
+        return view('Apartaments.create');
     }
 
     /**
@@ -54,9 +54,9 @@ class ApartamentsController extends Controller
      * @param  \App\Apartaments  $apartaments
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartaments $apartaments)
+    public function show(Apartaments $id)
     {
-        //
+        return view('Apartaments.show', compact($id));
     }
 
     /**
