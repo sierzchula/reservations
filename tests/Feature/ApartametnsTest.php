@@ -13,7 +13,7 @@ class ApartametnsTest extends TestCase
 
     public function test_create_appartment_test()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $attributes = factory('App\Apartments')->raw();
         $this->post('/apartments', $attributes)->assertRedirect('/apartments');
         $this->assertDatabaseHas('apartments', $attributes);
@@ -22,7 +22,7 @@ class ApartametnsTest extends TestCase
 
     public function test_if_apartments_show_shows_test()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $apartment = factory('App\Apartments')->create();
         $this->assertDatabaseHas('apartments', ['id' => $apartment->id]);
         $this->get('/apartments/' . $apartment->id)->assertSee($apartment->name);
