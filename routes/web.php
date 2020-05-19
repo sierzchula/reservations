@@ -32,10 +32,10 @@ Route::delete(  '/reservations/{reservation}',       'ReservationsController@des
 Route::get(     '/apartments',             'ApartmentsController@index')->name(   'apartments.index');
 Route::get(     '/apartments/create',      'ApartmentsController@create')->name(  'apartments.create');
 Route::post(    '/apartments',             'ApartmentsController@store')->name(   'apartments.store');
-Route::get(     '/apartments/{apartament}',        'ApartmentsController@show')->name(    'apartments.show');
-Route::get(     '/apartments/{apartament}/edit',   'ApartmentsController@edit')->name(    'apartments.edit');
-Route::put(     '/apartments/{apartament}',        'ApartmentsController@update')->name(  'apartments.update');
-Route::delete(  '/apartments/{apartament}',        'ApartmentsController@destroy')->name( 'apartments.destroy');
+Route::get(     '/apartments/{apartment}',        'ApartmentsController@show')->name(    'apartments.show');
+Route::get(     '/apartments/{apartment}/edit',   'ApartmentsController@edit')->name(    'apartments.edit');
+Route::put(     '/apartments/{apartment}',        'ApartmentsController@update')->name(  'apartments.update');
+Route::delete(  '/apartments/{apartment}',        'ApartmentsController@destroy')->name( 'apartments.destroy');
 
 Route::get(     '/clients',                 'ClientsController@index')->name(       'clients.index');
 Route::get(     '/clients/create',          'ClientsController@create')->name(      'clients.create');
