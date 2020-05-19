@@ -12,5 +12,8 @@ class Apartments extends Model
     {
         return $this->hasMany('App\Reservations');
     }
-    
+    public function path()
+    {
+        return "/apartments/{$this->id}";
+    }
 }

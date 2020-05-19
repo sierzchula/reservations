@@ -25,7 +25,7 @@ class ApartametnsTest extends TestCase
         //$this->withoutExceptionHandling();
         $apartment = factory('App\Apartments')->create();
         $this->assertDatabaseHas('apartments', ['id' => $apartment->id]);
-        $this->get('/apartments/' . $apartment->id)->assertSee($apartment->name);
+        $this->get( $apartment->path() )->assertSee($apartment->name);
     }
 
     public function test_apartments_required_fields_test()
