@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Apartaments;
+use App\Apartments;
 use Illuminate\Http\Request;
 
-class ApartamentsController extends Controller
+class ApartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class ApartamentsController extends Controller
      */
     public function create()
     {
-        return view('Apartaments.create');
+        return view('Apartments.create');
     }
 
     /**
@@ -42,30 +42,30 @@ class ApartamentsController extends Controller
             'notes' => 'nullable'
         ]);
 
-        $apartament = new Apartaments($data);
-        $apartament->save();
+        $apartment = new Apartments($data);
+        $apartment->save();
 
-        return redirect()->route('apartaments.index');
+        return redirect()->route('apartments.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Apartaments  $apartaments
+     * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartaments $id)
+    public function show(Apartments $apartment)
     {
-        return view('Apartaments.show', compact($id));
+        return view('Apartments.show', ['apartment' => $apartment]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Apartaments  $apartaments
+     * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartaments $apartaments)
+    public function edit(Apartments $apartments)
     {
         //
     }
@@ -74,10 +74,10 @@ class ApartamentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Apartaments  $apartaments
+     * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartaments $apartaments)
+    public function update(Request $request, Apartments $apartments)
     {
         //
     }
@@ -85,10 +85,10 @@ class ApartamentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Apartaments  $apartaments
+     * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartaments $apartaments)
+    public function destroy(Apartments $apartments)
     {
         //
     }

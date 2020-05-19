@@ -11,21 +11,26 @@ class ApartametnsTest extends TestCase
 
     use WithFaker, RefreshDatabase;
 
-    public function testCreateAppartamentTest()
+    public function test_create_appartment_test()
     {
-        //$this->withoutExceptionHandling();
-
-        $this->attributes = factory('App\Apartaments')->raw();
-        
-        $this->post('/apartaments', $this->attributes)->assertRedirect('/apartaments');
-
-        $this->assertDatabaseHas('apartaments', $this->attributes);
+        $this->withoutExceptionHandling();
+        $attributes = factory('App\Apartments')->raw();
+        $this->post('/apartments', $attributes)->assertRedirect('/apartments');
+        $this->assertDatabaseHas('apartments', $attributes);
 
     }
 
-    public function testApartamentsRequiredFieldsTest()
+    public function test_if_apartments_show_shows_test()
     {
-        $this->post('/apartaments', [])->assertSessionHasErrors(['name','address','persons']);
+        $this->withoutExceptionHandling();
+        $apartment = factory('App\Apartments')->create();
+        $this->assertDatabaseHas('apartments', ['id' => $apartment->id]);
+        $this->get('/apartments/' . $apartment->id)->assertSee($apartment->name);
     }
-    
+
+    public function test_apartments_required_fields_test()
+    {
+        $this->post('/apartments', [])->assertSessionHasErrors(['name','address','persons']);
+    }
+
 }
