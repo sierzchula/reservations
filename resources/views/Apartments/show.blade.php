@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('app.main')
 
 @section('content')
  {{$apartment->name}}
