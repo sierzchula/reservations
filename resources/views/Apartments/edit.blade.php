@@ -39,5 +39,12 @@
             <a href="{{ route('apartments.index') }}" class="btn btn-danger mb-2">cancel</a>
         </div>
     </form>
+    <form method="POST" action="{{ route('apartments.destroy', ['apartment' => $apartment['id']]) }}">
+        @csrf
+        @method('DELETE')
+        <div class="d-flex">
+            <input type="submit" class="ml-auto btn bg-warning mb-2" value="delete" />
+        </div>
+    </form>
 </div>
 @endsection

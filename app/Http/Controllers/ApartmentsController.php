@@ -98,7 +98,8 @@ class ApartmentsController extends Controller
 
         $apartment->update( $data );
 
-        return redirect()->route('apartments.edit', [ 'apartment' => $apartment['id'] ]);
+        //return redirect()->route('apartments.edit', [ 'apartment' => $apartment['id'] ]);
+        return redirect()->route('apartments.index');
 
     }
 
@@ -110,6 +111,7 @@ class ApartmentsController extends Controller
      */
     public function destroy(Apartments $apartment)
     {
-        //
+        $apartment->delete();
+        return redirect()->route('apartments.index');
     }
 }
