@@ -14,7 +14,11 @@ class ApartmentsController extends Controller
      */
     public function index()
     {
-        //
+        //get apartments list
+        $apartments = Apartments::all();
+
+        return view('Apartments/index')
+        ->with('apartments', $apartments);
     }
 
     /**
@@ -35,10 +39,11 @@ class ApartmentsController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'name' => ['required', 'max:255'],
             'address' => ['required', 'max:255'],
-            'persons' => ['required','min:1'],
+            'persons' => ['required','min:1', 'max:16'],
             'notes' => 'nullable'
         ]);
 
@@ -46,6 +51,7 @@ class ApartmentsController extends Controller
         $apartment->save();
 
         return redirect()->route('apartments.index');
+        
     }
 
     /**
@@ -56,7 +62,7 @@ class ApartmentsController extends Controller
      */
     public function show(Apartments $apartment)
     {
-        return view('Apartments.show', ['apartment' => $apartment]);
+        return redirect()->route('apartments.index');
     }
 
     /**
@@ -65,9 +71,10 @@ class ApartmentsController extends Controller
      * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartments $apartments)
+    public function edit(Apartments $apartment)
     {
-        //
+        return view('Apartments.edit')
+            ->with('apartment', $apartment);
     }
 
     /**
@@ -77,9 +84,22 @@ class ApartmentsController extends Controller
      * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartments $apartments)
+    public function update(Request $request, Apartments $apartment)
     {
-        //
+        //request has post
+        //apartment has query
+
+        $data = $request->validate([
+            'name' => ['required', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'persons' => ['required','min:1', 'max:16'],
+            'notes' => 'nullable'
+        ]);
+
+        $apartment->update( $data );
+
+        return redirect()->route('apartments.edit', [ 'apartment' => $apartment['id'] ]);
+
     }
 
     /**
@@ -88,7 +108,7 @@ class ApartmentsController extends Controller
      * @param  \App\Apartments  $apartments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartments $apartments)
+    public function destroy(Apartments $apartment)
     {
         //
     }
