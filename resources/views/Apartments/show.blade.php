@@ -1,5 +1,5 @@
-@extends('app.main')
+@extends("layouts.app")
 
 @section('content')
- {{$apartment->name}}
+<p>{{ $apartment['name'] }} <a class="btn bg-primary text-white" href="{{ route('apartments.edit', ['apartment' => $apartment['id']]) }}">edit</a></p>
 @endsection

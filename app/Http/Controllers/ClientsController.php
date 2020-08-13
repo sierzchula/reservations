@@ -14,7 +14,11 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        return view('Clients/index');
+        //get clients list
+        $clients = Clients::all();
+
+        return view('Clients/index')
+            ->with('clients', $clients);
     }
 
     /**
@@ -24,7 +28,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        //
+        return view('Clients.create');
     }
 
     /**
@@ -35,7 +39,12 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate( $this->validateScheme );
+
+        $client = new Clients($data);
+        $client->save();
+
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -44,9 +53,10 @@ class ClientsController extends Controller
      * @param  \App\Clients  $clients
      * @return \Illuminate\Http\Response
      */
-    public function show(Clients $clients)
+    public function show(Clients $client)
     {
-        //
+        return view('Clients.show')
+            ->with('client', $client);
     }
 
     /**
@@ -55,9 +65,10 @@ class ClientsController extends Controller
      * @param  \App\Clients  $clients
      * @return \Illuminate\Http\Response
      */
-    public function edit(Clients $clients)
+    public function edit(Clients $client)
     {
-        //
+        return view('Clients.edit')
+            ->with('client', $client);
     }
 
     /**
@@ -67,9 +78,13 @@ class ClientsController extends Controller
      * @param  \App\Clients  $clients
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clients $clients)
+    public function update(Request $request, Clients $client)
     {
-        //
+        $data = $request->validate( $this->validateScheme );
+
+        $client->update( $data );
+
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -78,8 +93,17 @@ class ClientsController extends Controller
      * @param  \App\Clients  $clients
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Clients $clients)
+    public function destroy(Clients $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('clients.index');
     }
+
+    private $validateScheme = [
+        'name' => ['required', 'max:255'],
+        'phone' => ['required', 'max:16'],
+        'address' => ['required','max:255'],
+        'email' => ['required','email:rfc,dns'],
+        'notes' => 'nullable'
+    ];
 }

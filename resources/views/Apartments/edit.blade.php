@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary mb-2" value="save" />
-            <a href="{{ route('apartments.index') }}" class="btn btn-danger mb-2">cancel</a>
+            <a href="{{ route('apartments.show', ['apartment' => $apartment['id']]) }}" class="btn btn-danger mb-2">cancel</a>
         </div>
     </form>
     <form method="POST" action="{{ route('apartments.destroy', ['apartment' => $apartment['id']]) }}">

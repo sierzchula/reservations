@@ -40,12 +40,7 @@ class ApartmentsController extends Controller
     public function store(Request $request)
     {
 
-        $data = $request->validate([
-            'name' => ['required', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'persons' => ['required','min:1', 'max:16'],
-            'notes' => 'nullable'
-        ]);
+        $data = $request->validate( $this->validateScheme );
 
         $apartment = new Apartments($data);
         $apartment->save();
@@ -62,7 +57,8 @@ class ApartmentsController extends Controller
      */
     public function show(Apartments $apartment)
     {
-        return redirect()->route('apartments.index');
+        return view('Apartments.show')
+            ->with('apartment', $apartment);
     }
 
     /**
@@ -86,19 +82,11 @@ class ApartmentsController extends Controller
      */
     public function update(Request $request, Apartments $apartment)
     {
-        //request has post
-        //apartment has query
 
-        $data = $request->validate([
-            'name' => ['required', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'persons' => ['required','min:1', 'max:16'],
-            'notes' => 'nullable'
-        ]);
+        $data = $request->validate( $this->validateScheme );
 
         $apartment->update( $data );
 
-        //return redirect()->route('apartments.edit', [ 'apartment' => $apartment['id'] ]);
         return redirect()->route('apartments.index');
 
     }
@@ -114,4 +102,11 @@ class ApartmentsController extends Controller
         $apartment->delete();
         return redirect()->route('apartments.index');
     }
+
+    private $validateScheme = [
+        'name' => ['required', 'max:255'],
+        'address' => ['required', 'max:255'],
+        'persons' => ['required','digits_between:1,16', 'integer'],
+        'notes' => 'nullable'
+    ];
 }
