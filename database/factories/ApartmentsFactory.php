@@ -9,6 +9,6 @@ $factory->define(Apartments::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'address' => $faker->address,
-        'persons' => rand(1,4)
+        'persons' => rand(1,16)
     ];
 });
