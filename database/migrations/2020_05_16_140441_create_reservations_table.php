@@ -22,7 +22,7 @@ class CreateReservationsTable extends Migration
             $table->integer('price_day');
             $table->integer('money_total');
             $table->integer('money_paid')->nullable();
-            $table->enum('status', ['Not paid','Partially paid', 'Fully Paid', 'Cancelled', 'Not available']);
+            $table->enum('status', ['Not paid','Partially paid', 'Fully paid', 'Cancelled', 'Not available']);
             $table->integer('adults')->nullable();
             $table->integer('kids')->nullable();
             $table->text('notes')->nullable();

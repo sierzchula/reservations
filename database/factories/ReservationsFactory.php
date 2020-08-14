@@ -8,11 +8,21 @@ use Faker\Generator as Faker;
 $factory->define(Reservations::class, function (Faker $faker) {
     $startDay = strtotime("+" . rand(1,28) - 14 . " day", time());
     $days = rand(1,14);
-    $endDay = strtotime("+" . $days . " day", time());
+    $endDay = strtotime("+" . $days . " day", $startDay);
     $priceDay = rand(50,250);
     $priceTotal = $priceDay * $days;
-    $paid = $endDay < time() ? $priceTotal : $priceTotal * 0.3;
-    $status = $endDay < time() ? 'Fully paid' : 'Partially paid';
+    
+    if (rand(1,4) === 1) {
+        $paid = 0;
+        $status = 'Cancelled';
+    } elseif (rand(1,4) === 1) {
+        $paid = 0;
+        $status = 'Not paid';
+    } else {
+        $paid = $endDay < time() ? $priceTotal : $priceTotal * 0.3;
+        $status = $endDay < time() ? 'Fully paid' : 'Partially paid';
+    }
+    
 
     return [
         'apartments_id' => function () {

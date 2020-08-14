@@ -56,7 +56,10 @@ class ClientsController extends Controller
     public function show(Clients $client)
     {
         return view('Clients.show')
-            ->with('client', $client);
+            ->with([
+                'client' => $client,
+                'reservations' => $client->reservations    
+            ]);
     }
 
     /**
