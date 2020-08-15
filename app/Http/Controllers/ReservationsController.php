@@ -42,7 +42,6 @@ class ReservationsController extends Controller
                 $reservation['id'] => $reservation
             ];
         }
-        dd($reservations);
         return view('Reservations/index')
             ->with('reservations', $reservations);
     }
