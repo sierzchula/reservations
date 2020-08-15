@@ -14,7 +14,23 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        return view('Reservations/index');
+        $reservations = Reservations::select([
+            'reservations.id',
+            'apartments.name',
+            'start_date',
+            'end_date',
+            'status',
+            'adults',
+            'kids'
+        ])
+            ->selectRaw('( end_date - start_date ) /60/60/24 AS "days"')
+            ->join('apartments', 'apartments.id', '=', 'reservations.id')
+            ->orderBy('apartment_id', 'ASC')
+            ->orderBy('start_date', 'ASC')
+            ->get();
+
+        return view('Reservations/index')
+            ->with('reservations', $reservations);
     }
 
     /**
