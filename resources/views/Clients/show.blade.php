@@ -20,21 +20,20 @@
         @break
 
     @case('Fully paid')
-            bg-success
+            bg-success text-white
         @break
 
     @case('Not paid')
-            bg-danger
+            bg-danger text-white
         @break
 
     @case('Cancelled')
-            bg-secondary
+            bg-secondary text-white
         @break
 
     @default
-        bg-primary
-@endswitch
-             text-white" href="{{ route('reservations.show', $reservation['id']) }}">{{ $reservation['status'] }} - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a></p>
+        bg-primary text-white
+@endswitch" href="{{ route('reservations.show', $reservation['id']) }}">{{ $reservation['status'] }} - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a></p>
         </div>
     @endforeach
 </div>

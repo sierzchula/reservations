@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reservations;
+use App\Apartments;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
@@ -15,10 +16,9 @@ class ReservationsController extends Controller
     public function index()
     {
         $reservations_query = Reservations::select([
-            'reservations.id',
+            'id',
+            'apartments_id',
             'clients_id',
-            'apartments.id AS apartment_id',
-            'apartments.name',
             'start_date',
             'end_date',
             'status',
@@ -26,8 +26,12 @@ class ReservationsController extends Controller
             'kids'
         ])
             ->selectRaw('( end_date - start_date ) /60/60/24 AS "days"')
-            ->join('apartments', 'apartments.id', '=', 'reservations.id')
             ->get();
+
+        $apartments_query = Apartments::all();
+        foreach ($apartments_query as $apartment) {
+            $apartments[ $apartment['id'] ] = $apartment;
+        }
 
         /*
         array:
@@ -37,12 +41,14 @@ class ReservationsController extends Controller
         */
 
         foreach ( $reservations_query as $reservation) {
-            $reservations[ $reservation['name' ] ] = [
-                $reservation['id'] => $reservation
-            ];
+            $reservations[
+                $apartments[
+                    $reservation['apartments_id']
+                ]
+                ['name']
+            ]
+            [ $reservation['id'] ] = $reservation;
         }
-
-        dd($reservations_query);
 
         return view('Reservations/index')
             ->with('reservations', $reservations);
@@ -66,7 +72,15 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate( $this->validateScheme );
+        $data['start_date'] = time() + ($data['start_date']*60*60*24);
+        $data['end_date'] = $data['start_date'] + ($data['end_date']*60*60*24);
+        $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
+        
+        $reservation = new Reservations($data);
+        $reservation->save();
+
+        return redirect()->route('reservations.index');
     }
 
     /**
@@ -113,4 +127,16 @@ class ReservationsController extends Controller
     {
         //
     }
+
+    private $validateScheme = [
+        'apartments_id' => 'required',
+        'clients_id' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'price_day' => 'required',
+        'money_paid' => 'required',
+        'status' => 'required',
+        'adults' => 'required',
+        'kids' => 'required'
+    ];
 }
