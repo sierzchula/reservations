@@ -14,8 +14,9 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        $reservations = Reservations::select([
+        $reservations_query = Reservations::select([
             'reservations.id',
+            'apartments.id AS apartment_id',
             'apartments.name',
             'start_date',
             'end_date',
@@ -29,6 +30,19 @@ class ReservationsController extends Controller
             ->orderBy('start_date', 'ASC')
             ->get();
 
+        /*
+        array:
+            -apartment_id
+                -reservation_id
+                    -reservation
+        */
+
+        foreach ( $reservations_query as $reservation) {
+            $reservations[ $reservation['apartment_id' ] ] = [
+                $reservation['id'] => $reservation
+            ];
+        }
+        dd($reservations);
         return view('Reservations/index')
             ->with('reservations', $reservations);
     }
