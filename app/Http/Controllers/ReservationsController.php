@@ -16,6 +16,7 @@ class ReservationsController extends Controller
     {
         $reservations_query = Reservations::select([
             'reservations.id',
+            'clients_id',
             'apartments.id AS apartment_id',
             'apartments.name',
             'start_date',
@@ -26,22 +27,23 @@ class ReservationsController extends Controller
         ])
             ->selectRaw('( end_date - start_date ) /60/60/24 AS "days"')
             ->join('apartments', 'apartments.id', '=', 'reservations.id')
-            ->orderBy('apartment_id', 'ASC')
-            ->orderBy('start_date', 'ASC')
             ->get();
 
         /*
         array:
-            -apartment_id
-                -reservation_id
+            -apartment name
+                -reservation id
                     -reservation
         */
 
         foreach ( $reservations_query as $reservation) {
-            $reservations[ $reservation['apartment_id' ] ] = [
+            $reservations[ $reservation['name' ] ] = [
                 $reservation['id'] => $reservation
             ];
         }
+
+        dd($reservations_query);
+
         return view('Reservations/index')
             ->with('reservations', $reservations);
     }

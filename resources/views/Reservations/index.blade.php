@@ -5,10 +5,15 @@
 
 <div class="d-flex flex-column">
    
-    @foreach ( $reservations as $reservation )
-    <div class="p-1">
-        <a class="btn bg-primary text-white" href="{{ route('reservations.show', ['reservation' => $reservation['id']]) }}">{{ $reservation['name'] }} ( {{ date( 'Y-m-d', $reservation['start_date']) }} - {{ date( 'Y-m-d', $reservation['end_date']) }} / {{ $reservation['days']}} )</a>
-    </div>
+    @foreach ( $reservations as $key =>$reservations_aparment )
+    
+        <div class="d-flex flex-nowrap p-2">
+            <div class="p-1" style="width:200px">{{ $key }}</div>
+            @foreach ( $reservations_aparment as $reservation)
+                <div class="p-1 btn bg-success" style="width: {{ $reservation['days'] * 40 }}px"> {{ $reservation['days'] }}d </div>
+            @endforeach
+        </div>
+
     @endforeach
    
 </div>
