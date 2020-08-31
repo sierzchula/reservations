@@ -1,11 +1,15 @@
 @extends("layouts.app")
 
 @section("content")
-<p>reservations - <a href="{{ route('reservations.create') }}">add new</a></p>
+<p>reservations - {{date('m/Y', time())}} - <a href="{{ route('reservations.create') }}">add new</a></p>
 <div class="d-flex flex-row">
     <div class="" style="margin-right:150px"></div>
         @for($i=1;$i<=31;$i++)
-            <div class="" style="width:30px;text-align:center">{{$i}}</div>
+            <div class="" style="width:30px;text-align:center;
+                @if ( $i == date('d', time()) ) 
+                    font-weight: 700;color:red;
+                @endif
+            ">{{$i}}</div>
         @endfor
 </div>
 
