@@ -26,6 +26,7 @@ class ReservationsController extends Controller
             'kids'
         ])
             ->selectRaw('( end_date - start_date ) /60/60/24 AS "days"')
+            ->whereRaw('end_date > ' . strtotime("first day of this month") . ' AND start_date < ' . strtotime("last day of this month") )
             ->get();
 
         $apartments_query = Apartments::all();
@@ -73,8 +74,8 @@ class ReservationsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate( $this->validateScheme );
-        $data['start_date'] = time() + ($data['start_date']*60*60*24);
-        $data['end_date'] = $data['start_date'] + ($data['end_date']*60*60*24);
+        $data['start_date'] = $data['start_date']/1000;
+        $data['end_date'] = $data['end_date']/1000;
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation = new Reservations($data);
@@ -116,8 +117,8 @@ class ReservationsController extends Controller
     public function update(Request $request, Reservations $reservation)
     {
         $data = $request->validate( $this->validateScheme );
-        $data['start_date'] = time() + ($data['start_date']*60*60*24);
-        $data['end_date'] = $data['start_date'] + ($data['end_date']*60*60*24);
+        $data['start_date'] = $data['start_date']/1000;
+        $data['end_date'] = $data['end_date']/1000;
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation->update( $data );
