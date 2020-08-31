@@ -23,7 +23,7 @@
                     @if ( $reservation['days'] > 0 )
                         <a 
                             title="{{date('Y-m-d',$reservation['start_date'])}} - {{date('Y-m-d',$reservation['end_date'])}}" 
-                            href="{{ route('reservations.show', $reservation['id']) }}" 
+                            href="{{ route('reservations.edit', $reservation['id']) }}" 
                             class="border border-dark p-1 btn
                             @switch($reservation['status'])
                                 @case('Partially paid')
