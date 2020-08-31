@@ -32,6 +32,7 @@ class ReservationsController extends Controller
         $apartments_query = Apartments::all();
         foreach ($apartments_query as $apartment) {
             $apartments[ $apartment['id'] ] = $apartment;
+            $reservations[ $apartment['name'] ] = array();
         }
 
         /*

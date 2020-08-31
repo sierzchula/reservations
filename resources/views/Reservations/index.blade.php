@@ -23,7 +23,6 @@
         @foreach ( $reservations as $key =>$reservations_aparment )
             <div class="d-flex flex-nowrap p-1" style="position:relative;width:{{31*30}}px;height:41px">
 
-                {{-- TODO: move blocks relative to the month not only day --}}
                 @foreach ( $reservations_aparment as $reservation)
                     @if ( $reservation['days'] > 0 )
                         <a 
