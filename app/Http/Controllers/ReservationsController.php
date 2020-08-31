@@ -89,7 +89,7 @@ class ReservationsController extends Controller
      * @param  \App\Reservations  $reservations
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservations $reservations)
+    public function show(Reservations $reservation)
     {
         //
     }
@@ -100,9 +100,10 @@ class ReservationsController extends Controller
      * @param  \App\Reservations  $reservations
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservations $reservations)
+    public function edit(Reservations $reservation)
     {
-        //
+        return view('Reservations/edit')
+            ->with('reservation', $reservation);
     }
 
     /**
@@ -112,9 +113,16 @@ class ReservationsController extends Controller
      * @param  \App\Reservations  $reservations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reservations $reservations)
+    public function update(Request $request, Reservations $reservation)
     {
-        //
+        $data = $request->validate( $this->validateScheme );
+        $data['start_date'] = time() + ($data['start_date']*60*60*24);
+        $data['end_date'] = $data['start_date'] + ($data['end_date']*60*60*24);
+        $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
+        
+        $reservation->update( $data );
+
+        return redirect()->route('reservations.index');
     }
 
     /**
@@ -123,7 +131,7 @@ class ReservationsController extends Controller
      * @param  \App\Reservations  $reservations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservations $reservations)
+    public function destroy(Reservations $reservation)
     {
         //
     }
