@@ -30,3 +30,45 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
+import 'jquery-ui/ui/widgets/datepicker.js';
+
+$( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#start_date_show" )
+        .datepicker({
+          defaultDate: "+1d",
+          changeMonth: true,
+          numberOfMonths: 3,
+          altField: "#start_date",
+          altFormat: "@"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#end_date_show" ).datepicker({
+        defaultDate: "+1d",
+        changeMonth: true,
+        numberOfMonths: 3,
+        altField: "#end_date",
+        altFormat: "@"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+        alert( error );
+      }
+ 
+      return date;
+    }
+  } );
