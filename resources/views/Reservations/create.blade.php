@@ -70,4 +70,9 @@
         </div>
     </form>
 </div>
+
+<script>
+{{-- update datepicker with disabled dates --}}
+</script>
+
 @endsection

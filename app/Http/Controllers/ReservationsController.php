@@ -63,6 +63,7 @@ class ReservationsController extends Controller
      */
     public function create(Apartments $apartment)
     {
+        //TODO add reservation dates not available for datepicker for current apartment
         return view('Reservations/create')
             ->with('apartment', $apartment);
     }
