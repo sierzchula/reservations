@@ -46,7 +46,16 @@
                                 @default
                                     bg-primary text-white
                             @endswitch
-                        " style="height:34px;position:absolute;left: {{ -15 + date('d', $reservation['start_date']) * 30 }}px;width: {{ $reservation['days'] * 30 }}px">{{ $reservation['days'] }}</a>
+                        " style="height:34px;position:absolute; 
+                        @if ( date('m', $reservation['start_date']) == date('m', time() ) )
+                            left: {{ -15 + date('d', $reservation['start_date']) * 30 }}px;
+                        @elseif ( date('m', $reservation['end_date']) == date('m', time() ) )
+                        left: {{ -15 + date('d', $reservation['end_date']) * 30 - $reservation['days'] * 30 }}px;
+                        @else
+                           
+                        @endif
+
+                        width: {{ $reservation['days'] * 30 }}px">{{ $reservation['days'] }}</a>
                     @endif
                 @endforeach
             </div>

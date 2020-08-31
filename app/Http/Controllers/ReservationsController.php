@@ -74,8 +74,8 @@ class ReservationsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate( $this->validateScheme );
-        $data['start_date'] = $data['start_date']/1000;
-        $data['end_date'] = $data['end_date']/1000;
+        $data['start_date'] = strtotime( $data['start_date'] );
+        $data['end_date'] = strtotime( $data['end_date'] );
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation = new Reservations($data);
@@ -117,8 +117,8 @@ class ReservationsController extends Controller
     public function update(Request $request, Reservations $reservation)
     {
         $data = $request->validate( $this->validateScheme );
-        $data['start_date'] = $data['start_date']/1000;
-        $data['end_date'] = $data['end_date']/1000;
+        $data['start_date'] = strtotime( $data['start_date'] );
+        $data['end_date'] = strtotime( $data['end_date'] );
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation->update( $data );

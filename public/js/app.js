@@ -52077,21 +52077,15 @@ window.$ = window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   var dateFormat = "mm/dd/yy",
-      from = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#start_date_show").datepicker({
-    defaultDate: "+1d",
+      from = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#start_date").datepicker({
     changeMonth: true,
-    numberOfMonths: 3,
-    altField: "#start_date",
-    altFormat: "@"
+    numberOfMonths: 1
   }).on("change", function () {
     to.datepicker("option", "minDate", getDate(this));
   }),
-      to = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#end_date_show").datepicker({
-    defaultDate: "+1d",
+      to = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#end_date").datepicker({
     changeMonth: true,
-    numberOfMonths: 3,
-    altField: "#end_date",
-    altFormat: "@"
+    numberOfMonths: 1
   }).on("change", function () {
     from.datepicker("option", "maxDate", getDate(this));
   });

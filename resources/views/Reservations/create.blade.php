@@ -27,13 +27,11 @@
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Date start')}}:</label>
-            <input name="start_date_show" value="" type="text" required class="form-control" id="start_date_show">
-            <input name="start_date" value="" type="hidden" required class="form-control" id="start_date">
+            <input name="start_date" value="" type="text" required class="form-control" id="start_date">
         </div>
         <div class="form-group">
             <label for="end_date">{{__('Date end')}}:</label>
-            <input name="end_date_show" value="" type="text" required class="form-control" id="end_date_show">
-            <input name="end_date" value="" type="hidden" required class="form-control" id="end_date">
+            <input name="end_date" value="" type="text" required class="form-control" id="end_date">
         </div>
         <div class="form-group">
             <label for="price_day">{{__('Price per day')}}:</label>
