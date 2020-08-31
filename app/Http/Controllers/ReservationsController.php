@@ -32,7 +32,7 @@ class ReservationsController extends Controller
         $apartments_query = Apartments::all();
         foreach ($apartments_query as $apartment) {
             $apartments[ $apartment['id'] ] = $apartment;
-            $reservations[ $apartment['name'] ] = array();
+            $reservations[ $apartment['name'] ] = array('apartment_id' => $apartment['id']);
         }
 
         /*
@@ -51,7 +51,7 @@ class ReservationsController extends Controller
             ]
             [ $reservation['id'] ] = $reservation;
         }
-
+//dd($reservations);
         return view('Reservations/index')
             ->with('reservations', $reservations);
     }
@@ -61,9 +61,10 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Apartments $apartment)
     {
-        return view('Reservations/create');
+        return view('Reservations/create')
+            ->with('apartment', $apartment);
     }
 
     /**

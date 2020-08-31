@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("content")
-<p>reservations - {{date('m/Y', time())}} - <a href="{{ route('reservations.create') }}">add new</a></p>
+<p>reservations - {{date('m/Y', time())}}</p>
 <div class="d-flex flex-row">
     <div class="" style="margin-right:150px"></div>
         @for($i=1;$i<=31;$i++)
@@ -16,7 +16,10 @@
 <div class="d-flex">
     <div class="d-flex flex-column">
         @foreach ( $reservations as $key =>$reservations_aparment )
-            <div class="p-2 no-wrap border border-dark" style="width:150px;white-space: nowrap;background:white;height:41px;overflow:hidden" title="{{ $key }}">{{ $key }}</div>
+            <div class="p-2 no-wrap border border-dark" style="width:150px;white-space: nowrap;background:white;height:41px;overflow:hidden" title="{{ $key }}">
+                <a href="{{ route('reservations.create', $reservations_aparment['apartment_id']) }}">(add)</a>
+                {{ $key }} 
+            </div>
         @endforeach
     </div>
     <div class="d-flex flex-column" style="overflow: hidden;position:relative;background-size: 30px 41px;background-image:linear-gradient(to right, grey 1px, transparent 1px),linear-gradient(to bottom, grey 1px, transparent 1px);">
