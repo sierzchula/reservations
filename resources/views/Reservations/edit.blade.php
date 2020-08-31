@@ -39,7 +39,7 @@
             <input name="price_day" value="{{$reservation['price_day'] }}" type="number" required class="form-control" id="price_day">
         </div>
         <div class="form-group">
-            <label for="money_paid">{{__('Money paid')}}:</label>
+            <label for="money_paid">{{__('Money paid')}}: ({{__('Total before changes')}}: {{$reservation['money_total']}})</label>
             <input name="money_paid" value="{{ $reservation['money_paid'] }}" type="number" required class="form-control" id="money_paid">
         </div>
         <div class="form-group">
