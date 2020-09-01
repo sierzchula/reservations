@@ -52105,7 +52105,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
     return date;
   }
 
-  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').attr('date').length > 5) {
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').attr('date').length !== "undefined") {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').datepicker('setDate', jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').attr('date'));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#end_date_show').datepicker('setDate', jquery__WEBPACK_IMPORTED_MODULE_0___default()('#end_date_show').attr('date'));
   }

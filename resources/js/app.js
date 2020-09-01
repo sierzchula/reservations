@@ -67,7 +67,7 @@ $( function() {
  
       return date;
     }
-    if ( $('#start_date_show').attr('date').length > 5 ) {
+    if ( $('#start_date_show').attr('date').length !== "undefined" ) {
       $('#start_date_show').datepicker('setDate', $('#start_date_show').attr('date') );
       $('#end_date_show').datepicker('setDate', $('#end_date_show').attr('date') );
     }
