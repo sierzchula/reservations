@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="apartments_id">{{__('Aparment')}}:</label>
             <input name="apartments_id_show" value="{{ $apartment['name'] }}" type="text" disabled required class="form-control" id="apartments_id_text">
-            <input name="apartments_id" value="{{ $apartment['id'] }}" type="hidden" disabled required class="form-control" id="apartments_id">
+            <input name="apartments_id" value="{{ $apartment['id'] }}" type="hidden" required class="form-control" id="apartments_id">
         </div>
         <div class="form-group">
             <label for="clients_id">{{__('Client')}}:</label>

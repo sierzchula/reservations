@@ -28,12 +28,12 @@
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Date start')}}:</label>
-            <div id="start_date_show"></div>
+            <div id="start_date_show" date="{{ date('m/d/yy', $reservation['start_date']) }}"></div>
             <input name="start_date" value="{{ date('m/d/yy', $reservation['start_date']) }}" type="hidden" required class="form-control" id="start_date">
         </div>
         <div class="form-group">
             <label for="end_date">{{__('Date end')}}:</label>
-            <div id="end_date_show"></div>
+            <div id="end_date_show" date="{{ date('m/d/yy', $reservation['end_date']) }}"></div>
             <input name="end_date" value="{{ date('m/d/yy', $reservation['end_date']) }}" type="hidden" required class="form-control" id="end_date">
         </div>
         <div class="form-group">

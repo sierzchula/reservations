@@ -52082,14 +52082,14 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
     numberOfMonths: 1,
     altField: "#start_date"
   }).on("change", function () {
-    to.datepicker("option", "minDate", getDate(this));
+    to.datepicker("option", "minDate", new Date(getDate(this).valueOf() + 24 * 60 * 60 * 1000));
   }),
       to = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#end_date_show").datepicker({
     changeMonth: true,
     numberOfMonths: 1,
     altField: "#end_date"
   }).on("change", function () {
-    from.datepicker("option", "maxDate", getDate(this));
+    from.datepicker("option", "maxDate", new Date(getDate(this).valueOf() - 24 * 60 * 60 * 1000));
   });
 
   function getDate(element) {
@@ -52103,6 +52103,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
     }
 
     return date;
+  }
+
+  if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').attr('date').length > 5) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').datepicker('setDate', jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start_date_show').attr('date'));
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#end_date_show').datepicker('setDate', jquery__WEBPACK_IMPORTED_MODULE_0___default()('#end_date_show').attr('date'));
   }
 });
 

@@ -45,7 +45,7 @@ $( function() {
           altField: "#start_date"
         })
         .on( "change", function() {
-          to.datepicker( "option", "minDate", getDate( this ) );
+          to.datepicker( "option", "minDate", new Date( getDate( this ).valueOf() + 24*60*60*1000 ) );
         }),
       to = $( "#end_date_show" ).datepicker({
         changeMonth: true,
@@ -53,7 +53,7 @@ $( function() {
         altField: "#end_date"
       })
       .on( "change", function() {
-        from.datepicker( "option", "maxDate", getDate( this ) );
+        from.datepicker( "option", "maxDate", new Date( getDate( this ).valueOf() - 24*60*60*1000 ) );
       });
  
     function getDate( element ) {
@@ -66,5 +66,9 @@ $( function() {
       }
  
       return date;
+    }
+    if ( $('#start_date_show').attr('date').length > 5 ) {
+      $('#start_date_show').datepicker('setDate', $('#start_date_show').attr('date') );
+      $('#end_date_show').datepicker('setDate', $('#end_date_show').attr('date') );
     }
   } );
