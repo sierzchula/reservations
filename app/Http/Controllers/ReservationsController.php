@@ -150,6 +150,7 @@ class ReservationsController extends Controller
         'money_paid' => 'required',
         'status' => 'required',
         'adults' => 'required',
-        'kids' => 'required'
+        'kids' => 'required',
+        'notes' => 'nullable'
     ];
 }
