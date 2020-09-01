@@ -33,7 +33,7 @@
 
     @default
         bg-primary text-white
-@endswitch" href="{{ route('reservations.show', $reservation['id']) }}">{{ $reservation['status'] }} - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a></p>
+@endswitch" href="{{ route('reservations.edit', $reservation['id']) }}">{{ $reservation['status'] }} - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a></p>
         </div>
     @endforeach
 </div>
