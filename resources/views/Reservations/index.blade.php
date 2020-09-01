@@ -4,7 +4,7 @@
 <p>reservations - {{date('m/Y', time())}}</p>
 <div class="d-flex flex-row">
     <div class="" style="margin-right:150px"></div>
-        @for($i=1;$i<=31;$i++)
+        @for($i=1;$i<=date('t', time());$i++)
             <div class="" style="width:30px;text-align:center;
                 @if ( $i == date('d', time()) ) 
                     font-weight: 700;color:red;
