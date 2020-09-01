@@ -15,7 +15,7 @@
     </div>
 @endif
 
-    <form method="POST" action="{{ route('reservations.store') }}">
+    <form method="POST" action="{{ route('reservations.store') }}" autocomplete="off">
         @csrf
         <div class="form-group">
             <label for="apartments_id">{{__('Aparment')}}:</label>
@@ -28,11 +28,13 @@
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Date start')}}:</label>
-            <input name="start_date" value="" type="text" required class="form-control" id="start_date">
+            <div id="start_date_show"></div>
+            <input name="start_date" value="" type="hidden" required class="form-control" id="start_date">
         </div>
         <div class="form-group">
             <label for="end_date">{{__('Date end')}}:</label>
-            <input name="end_date" value="" type="text" required class="form-control" id="end_date">
+            <div id="end_date_show"></div>
+            <input name="end_date" value="" type="hidden" required class="form-control" id="end_date">
         </div>
         <div class="form-group">
             <label for="price_day">{{__('Price per day')}}:</label>

@@ -38,17 +38,19 @@ import 'jquery-ui/ui/widgets/datepicker.js';
 
 $( function() {
     var dateFormat = "mm/dd/yy",
-      from = $( "#start_date" )
+      from = $( "#start_date_show" )
         .datepicker({
           changeMonth: true,
-          numberOfMonths: 1
+          numberOfMonths: 1,
+          altField: "#start_date"
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
         }),
-      to = $( "#end_date" ).datepicker({
+      to = $( "#end_date_show" ).datepicker({
         changeMonth: true,
-        numberOfMonths: 1
+        numberOfMonths: 1,
+        altField: "#end_date"
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
