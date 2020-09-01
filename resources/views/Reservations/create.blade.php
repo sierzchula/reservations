@@ -38,11 +38,11 @@
         </div>
         <div class="form-group">
             <label for="price_day">{{__('Price per day')}}:</label>
-            <input name="price_day" value="{{ old('price_day') }}" type="number" required class="form-control" id="price_day">
+            <input name="price_day" value="{{ old('price_day') }}" type="number" step="any" required class="form-control" id="price_day">
         </div>
         <div class="form-group">
             <label for="money_paid">{{__('Money paid')}}:</label>
-            <input name="money_paid" value="{{ old('money_paid') }}" type="number" required class="form-control" id="money_paid">
+            <input name="money_paid" value="{{ old('money_paid') }}" type="number" step="any" required class="form-control" id="money_paid">
         </div>
         <div class="form-group">
             <label for="status">{{__('Status')}}:</label>

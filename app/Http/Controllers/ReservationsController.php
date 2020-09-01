@@ -137,7 +137,8 @@ class ReservationsController extends Controller
      */
     public function destroy(Reservations $reservation)
     {
-        //
+        $reservation->delete();
+        return redirect()->route('reservations.index');
     }
 
     private $validateScheme = [

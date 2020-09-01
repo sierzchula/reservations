@@ -38,11 +38,11 @@
         </div>
         <div class="form-group">
             <label for="price_day">{{__('Price per day')}}:</label>
-            <input name="price_day" value="{{$reservation['price_day'] }}" type="number" required class="form-control" id="price_day">
+            <input name="price_day" value="{{$reservation['price_day'] }}" type="number" step="any" required class="form-control" id="price_day">
         </div>
         <div class="form-group">
             <label for="money_paid">{{__('Money paid')}}: ({{__('Total before changes')}}: {{$reservation['money_total']}})</label>
-            <input name="money_paid" value="{{ $reservation['money_paid'] }}" type="number" required class="form-control" id="money_paid">
+            <input name="money_paid" value="{{ $reservation['money_paid'] }}" type="number" step="any" required class="form-control" id="money_paid">
         </div>
         <div class="form-group">
             <label for="status">{{__('Status')}}:</label>
@@ -69,6 +69,14 @@
         <div class="form-group">
             <input type="submit" class="btn btn-primary mb-2" value="{{__('save')}}" />
             <a href="{{ route('reservations.index') }}" class="btn btn-danger mb-2">{{__('cancel')}}</a>
+        </div>
+    </form>
+
+    <form method="POST" action="{{ route('reservations.destroy', ['reservation' => $reservation['id']]) }}">
+        @csrf
+        @method('DELETE')
+        <div class="d-flex">
+            <input type="submit" class="ml-auto btn bg-warning mb-2" value="{{__('delete')}}" />
         </div>
     </form>
 </div>
