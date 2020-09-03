@@ -19,16 +19,20 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label for="apartments_id">{{__('Aparment')}}:</label>{{ $reservation['apartments_id'] }}
+            <label for="apartments_id">{{__('Aparment')}}:</label>
             <select name="apartments_id" required class="form-control" id="apartments_id">
-                @foreach( $apartments as $id => $apartment )
-                    <option value="{{ $id }}" @if($reservation['apartments_id'] == $id) selected @endif >{{ $apartment['name'] }}</option>
+                @foreach( $apartments as $apartment_foreach )
+                    <option value="{{ $apartment_foreach['id'] }}" @if($reservation['apartments_id'] == $apartment_foreach['id']) selected @endif >{{ $apartment_foreach['name'] }}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
             <label for="clients_id">{{__('Client')}}:</label>
-            <input name="clients_id" value="{{ $reservation['clients_id'] }}" type="number" required class="form-control" id="clients_id">
+            <select name="clients_id" required class="form-control" id="clients_id">
+                @foreach( $clients as $client )
+                    <option value="{{ $client['id'] }}" @if($reservation['clients_id'] == $client['id']) selected @endif >{{ $client['name'] }} ( {{ $client['address'] }} )</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Date start')}}:</label>

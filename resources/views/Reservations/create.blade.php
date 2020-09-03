@@ -19,12 +19,19 @@
         @csrf
         <div class="form-group">
             <label for="apartments_id">{{__('Aparment')}}:</label>
-            <input name="apartments_id_show" value="{{ $apartment['name'] }}" type="text" disabled required class="form-control" id="apartments_id_text">
-            <input name="apartments_id" value="{{ $apartment['id'] }}" type="hidden" required class="form-control" id="apartments_id">
+            <select name="apartments_id" required class="form-control" id="apartments_id">
+                @foreach( $apartments as $apartment_foreach )
+                    <option value="{{ $apartment_foreach['id'] }}" @if($apartment['id'] == $apartment_foreach['id']) selected @endif >{{ $apartment_foreach['name'] }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="clients_id">{{__('Client')}}:</label>
-            <input name="clients_id" value="{{ old('clients_id') }}" type="number" required class="form-control" id="clients_id">
+            <select name="clients_id" required class="form-control" id="clients_id">
+                @foreach( $clients as $client )
+                    <option value="{{ $client['id'] }}">{{ $client['name'] }} ( {{ $client['address'] }} )</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Date start')}}:</label>

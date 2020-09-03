@@ -65,9 +65,11 @@ class ReservationsController extends Controller
     public function create(Apartments $apartment)
     {
         $clients_query = Clients::all();
+        $apartments_query = Apartments::all();
 
         return view('Reservations/create', [
             'apartment' => $apartment,
+            'apartments' => $apartments_query,
             'clients' => $clients_query
         ]);
     }
@@ -111,16 +113,11 @@ class ReservationsController extends Controller
     public function edit(Reservations $reservation)
     {
         $clients_query = Clients::all();
-
         $apartments_query = Apartments::all();
-
-        foreach ($apartments_query as $apartment) {
-            $apartments[ $apartment['id'] ] = $apartment;
-        }
 
         return view('Reservations/edit', [
             'reservation' => $reservation,
-            'apartments' => $apartments,
+            'apartments' => $apartments_query,
             'clients' => $clients_query
         ]);
     }
