@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reservations;
 use App\Apartments;
+use App\Clients;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
@@ -63,9 +64,12 @@ class ReservationsController extends Controller
      */
     public function create(Apartments $apartment)
     {
-        //TODO add reservation dates not available for datepicker for current apartment
-        return view('Reservations/create')
-            ->with('apartment', $apartment);
+        $clients_query = Clients::all();
+
+        return view('Reservations/create', [
+            'apartment' => $apartment,
+            'clients' => $clients_query
+        ]);
     }
 
     /**
@@ -106,6 +110,7 @@ class ReservationsController extends Controller
      */
     public function edit(Reservations $reservation)
     {
+        $clients_query = Clients::all();
 
         $apartments_query = Apartments::all();
 
@@ -115,7 +120,8 @@ class ReservationsController extends Controller
 
         return view('Reservations/edit', [
             'reservation' => $reservation,
-            'apartments' => $apartments
+            'apartments' => $apartments,
+            'clients' => $clients_query
         ]);
     }
 
