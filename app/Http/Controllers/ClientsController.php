@@ -15,7 +15,7 @@ class ClientsController extends Controller
     public function index()
     {
         //get clients list
-        $clients = Clients::all();
+        $clients = Clients::all()->sortByDesc("id");
 
         return view('Clients/index')
             ->with('clients', $clients);

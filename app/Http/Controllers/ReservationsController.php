@@ -64,8 +64,8 @@ class ReservationsController extends Controller
      */
     public function create(Apartments $apartment)
     {
-        $clients_query = Clients::all();
-        $apartments_query = Apartments::all();
+        $clients_query = Clients::all()->sortByDesc("id");
+        $apartments_query = Apartments::all()->sortByDesc("id");
 
         return view('Reservations/create', [
             'apartment' => $apartment,
@@ -112,8 +112,8 @@ class ReservationsController extends Controller
      */
     public function edit(Reservations $reservation)
     {
-        $clients_query = Clients::all();
-        $apartments_query = Apartments::all();
+        $clients_query = Clients::all()->sortByDesc("id");
+        $apartments_query = Apartments::all()->sortByDesc("id");
 
         return view('Reservations/edit', [
             'reservation' => $reservation,

@@ -15,7 +15,7 @@ class ApartmentsController extends Controller
     public function index()
     {
         //get apartments list
-        $apartments = Apartments::all();
+        $apartments = Apartments::all()->sortByDesc("id");
 
         return view('Apartments/index')
         ->with('apartments', $apartments);
