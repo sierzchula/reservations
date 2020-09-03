@@ -19,8 +19,12 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label for="apartments_id">{{__('Aparment')}}:</label>
-            <input name="apartments_id" value="{{ $reservation['apartments_id'] }}" type="number" required class="form-control" id="apartments_id">
+            <label for="apartments_id">{{__('Aparment')}}:</label>{{ $reservation['apartments_id'] }}
+            <select name="apartments_id" required class="form-control" id="apartments_id">
+                @foreach( $apartments as $id => $apartment )
+                    <option value="{{ $id }}" @if($reservation['apartments_id'] == $id) selected @endif >{{ $apartment['name'] }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="clients_id">{{__('Client')}}:</label>
