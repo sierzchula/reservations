@@ -106,8 +106,17 @@ class ReservationsController extends Controller
      */
     public function edit(Reservations $reservation)
     {
-        return view('Reservations/edit')
-            ->with('reservation', $reservation);
+
+        $apartments_query = Apartments::all();
+
+        foreach ($apartments_query as $apartment) {
+            $apartments[ $apartment['id'] ] = $apartment;
+        }
+
+        return view('Reservations/edit', [
+            'reservation' => $reservation,
+            'apartments' => $apartments
+        ]);
     }
 
     /**
