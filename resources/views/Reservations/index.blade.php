@@ -1,7 +1,18 @@
 @extends("layouts.app")
 
 @section("content")
-<p>reservations - {{request()->route('year')}}/{{request()->route('month')}}</p>
+<p>reservations</p>
+
+<div class="d-flex justify-content-between w-100">
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -3 months") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -3 months") ) }}</a>
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -2 months") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -2 months") ) }}</a>
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ) }}</a>
+    <a class="d-flex font-weight-bold" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') ) )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') ) ) }}</a>
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +1 month") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +1 month") ) }}</a>
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +2 months") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +2 months") ) }}</a>
+    <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/01/" . request()->route('year') . " -1 month") ), date("m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +3 months") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/01/" . request()->route('year') . " +3 months") ) }}</a>
+</div>
+
 <div class="d-flex flex-row">
     <div class="" style="margin-right:150px"></div>
         @for($i=1;$i<=date('t', strtotime( request()->route('month') . "/01/" . request()->route('year') ));$i++)

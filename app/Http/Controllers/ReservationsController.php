@@ -16,7 +16,7 @@ class ReservationsController extends Controller
      */
     public function index(Request $request)
     {
-        if ( !$year = $request->route('year') ) {
+        if ( !$month = $request->route('month') ) {
             return redirect()->route('reservations.indexdate', [
                 'year' => date('Y', time() ),
                 'month' => date('m', time() )
