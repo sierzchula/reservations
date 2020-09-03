@@ -14,8 +14,18 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ( !$year = $request->route('year') ) {
+            return redirect()->route('reservations.indexdate', [
+                'year' => date('Y', time() ),
+                'month' => date('m', time() )
+            ]);
+        }
+
+        $year = $request->route('year');
+        $month = $request->route('month');
+
         $reservations_query = Reservations::select([
             'id',
             'apartments_id',
@@ -27,7 +37,7 @@ class ReservationsController extends Controller
             'kids'
         ])
             ->selectRaw('( end_date - start_date ) /60/60/24 AS "days"')
-            ->whereRaw('end_date > ' . strtotime("first day of this month") . ' AND start_date < ' . strtotime("last day of this month") )
+            ->whereRaw('end_date >= ' . strtotime("first day of $month/01/$year") . ' AND start_date <= ' . strtotime("last day of $month/01/$year") )
             ->get();
 
         $apartments_query = Apartments::all();

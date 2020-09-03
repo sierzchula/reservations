@@ -1,10 +1,10 @@
 @extends("layouts.app")
 
 @section("content")
-<p>reservations - {{date('m/Y', time())}}</p>
+<p>reservations - {{request()->route('year')}}/{{request()->route('month')}}</p>
 <div class="d-flex flex-row">
     <div class="" style="margin-right:150px"></div>
-        @for($i=1;$i<=date('t', time());$i++)
+        @for($i=1;$i<=date('t', strtotime( request()->route('month') . "/01/" . request()->route('year') ));$i++)
             <div class="" style="width:30px;text-align:center;
                 @if ( $i == date('d', time()) ) 
                     font-weight: 700;color:red;
@@ -53,9 +53,9 @@
                                     bg-primary text-white
                             @endswitch
                         " style="height:34px;position:absolute; 
-                        @if ( date('m', $reservation['start_date']) == date('m', time() ) )
+                        @if ( date('m', $reservation['start_date']) == request()->route('month') )
                             left: {{ -15 + date('d', $reservation['start_date']) * 30 }}px;
-                        @elseif ( date('m', $reservation['end_date']) == date('m', time() ) )
+                        @elseif ( date('m', $reservation['end_date']) == request()->route('month') )
                         left: {{ -15 + date('d', $reservation['end_date']) * 30 - $reservation['days'] * 30 }}px;
                         @else
                            
