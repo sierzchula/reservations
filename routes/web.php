@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/',function(){returnview('welcome');});
 
-Auth::routes();
+Auth::routes(['reset' => false, 'register' => false]);
 Route::redirect('/home','/reservations');
 
 //Route::get('/home','HomeController@index')->name('home');
