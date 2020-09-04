@@ -40,14 +40,14 @@ class ReservationsController extends Controller
             ->whereRaw('end_date >= ' . strtotime("first day of $month/01/$year") . ' AND start_date <= ' . strtotime("last day of $month/01/$year") )
             ->get();
 
-        if ( count($reservations_query) == 0 ) {
-            return redirect()->route('apartments.create');
-        }
-
         $apartments_query = Apartments::all();
         foreach ($apartments_query as $apartment) {
             $apartments[ $apartment['id'] ] = $apartment;
             $reservations[ $apartment['name'] ] = array('apartment_id' => $apartment['id']);
+        }
+
+        if ( count($apartments_query) == 0 ) {
+            return redirect()->route('apartments.create');
         }
 
         /*
