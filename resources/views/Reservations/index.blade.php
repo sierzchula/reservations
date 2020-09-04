@@ -80,17 +80,5 @@
         @endforeach
     </div>
 </div>
-
-<div class="d-flex flex-column no-wrap" style="background-position: -21px 1px;background-size: 40px 48px;background-image:linear-gradient(to right, grey 1px, transparent 1px),linear-gradient(to bottom, grey 1px, transparent 1px);">
-   
-    @foreach ( $reservations as $key =>$reservations_aparment )
-    
-        
-            
-                
-                
-        
-    @endforeach
-   
-</div>
+  
 @endsection
