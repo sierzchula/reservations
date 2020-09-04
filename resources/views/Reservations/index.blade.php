@@ -38,7 +38,7 @@
             <div class="d-flex flex-nowrap p-1" style="position:relative;width:{{31*30}}px;height:41px">
 
                 @foreach ( $reservations_aparment as $reservation)
-                    @if ( $reservation['days'] > 0 )
+                    @if ( gettype( $reservation ) == 'object' )
                         <a 
                             title="{{date('Y-m-d',$reservation['start_date'])}} - {{date('Y-m-d',$reservation['end_date'])}}" 
                             href="{{ route('reservations.edit', $reservation['id']) }}" 
