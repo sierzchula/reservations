@@ -13,27 +13,28 @@
     <p>Rezerwacje:</p>
     @foreach ( $reservations as $reservation )
         <div>
-            <p><a class="btn 
+            <p>
 @switch($reservation['status'])
     @case('Partially paid')
-            bg-warning text-dark
+        <a class="btn  bg-warning text-dark" href="{{ route('reservations.edit', $reservation['id']) }}">Wpłacona zaliczka - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
         @break
 
     @case('Fully paid')
-            bg-success text-white
+        <a class="btn bg-success text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Zapłacono - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
         @break
 
     @case('Not paid')
-            bg-danger text-white
+        <a class="btn bg-danger text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Brak wpłaty - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
         @break
 
     @case('Cancelled')
-            bg-secondary text-white
+        <a class="btn bg-secondary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Anulowano - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
         @break
 
     @default
-        bg-primary text-white
-@endswitch" href="{{ route('reservations.edit', $reservation['id']) }}">{{ $reservation['status'] }} - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a></p>
+        <a class="btn bg-primary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Niedostępny - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
+@endswitch
+            </p>
         </div>
     @endforeach
 </div>
