@@ -17,7 +17,7 @@
         <div class="" style="margin-right:150px"></div>
             @for($i=1;$i<=date('t', strtotime( request()->route('month') . "/01/" . request()->route('year') ));$i++)
                 <div class="" style="width:30px;text-align:center;
-                    @if ( $i == date('d', time()) ) 
+                    @if ( $i == date('d', time()) && date('m', time()) == request()->route('month') ) 
                         font-weight: 700;color:red;
                     @endif
                 ">{{$i}}</div>
@@ -63,7 +63,7 @@
                                     @default
                                         bg-primary text-white
                                 @endswitch
-                            " style="height:34px;position:absolute; 
+                            " style="overflow:hidden;height:34px;position:absolute; 
                             @if ( date('m', $reservation['start_date']) == request()->route('month') )
                                 left: {{ -15 + date('d', $reservation['start_date']) * 30 }}px;
                             @elseif ( date('m', $reservation['end_date']) == request()->route('month') )
@@ -72,7 +72,7 @@
                             
                             @endif
 
-                            width: {{ $reservation['days'] * 30 }}px">{{ $reservation['days'] }}</a>
+                            width: {{ $reservation['days'] * 30 }}px">{{ $reservation['client_data']['name'] }}</a>
                         @endif
                     @endforeach
                 </div>
