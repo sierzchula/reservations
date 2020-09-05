@@ -176,12 +176,15 @@ class ReservationsController extends Controller
         $findCollisionsCount = Reservations::where('end_date', '<=', $data['end_date'] )
             ->where('start_date', '>=', $data['start_date'])
             ->where('apartments_id', $data['apartments_id'])
+            ->where('id', '<>', $reservation['id'])
             ->orWhere('end_date', '>', $data['start_date'] )
             ->where('start_date', '<', $data['start_date'])
             ->where('apartments_id', $data['apartments_id'])
+            ->where('id', '<>', $reservation['id'])
             ->orWhere('start_date', '<', $data['end_date'] )
             ->where('end_date', '>', $data['end_date'])
             ->where('apartments_id', $data['apartments_id'])
+            ->where('id', '<>', $reservation['id'])
             ->count();
 
         if ( $findCollisionsCount != 0 ) {
