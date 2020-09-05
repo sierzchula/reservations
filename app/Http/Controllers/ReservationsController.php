@@ -104,26 +104,6 @@ class ReservationsController extends Controller
             return redirect()->back()->withErrors(['Nieprawidłowy zakres dat']);
         }
 
-        /*
-        $areAnyReservationInsideThatPeriode = Reservations::where('end_date', '<=', $data['end_date'] )
-            ->where('start_date', '>=', $data['start_date'])
-            ->where('apartments_id', $data['apartments_id'])
-            ->count();
-
-        $areAnyColisionWithTheBeginning = Reservations::where('end_date', '>', $data['start_date'] )
-            ->where('start_date', '<', $data['start_date'])
-            ->where('apartments_id', $data['apartments_id'])
-            ->count();
-
-        $areAnyColisionWithTheEnding = Reservations::where('start_date', '<', $data['end_date'] )
-            ->where('end_date', '>', $data['end_date'])
-            ->where('apartments_id', $data['apartments_id'])
-            ->count();
-
-        if ( $areAnyReservationInsideThatPeriode + $areAnyColisionWithTheBeginning + $areAnyColisionWithTheEnding != 0 ) {
-            return redirect()->back()->withErrors(['Apartament jest już zajęty w tym terminie, sprawdź wolne dni']);
-        } */
-
         $findCollisionsCount = Reservations::where('end_date', '<=', $data['end_date'] )
             ->where('start_date', '>=', $data['start_date'])
             ->where('apartments_id', $data['apartments_id'])
