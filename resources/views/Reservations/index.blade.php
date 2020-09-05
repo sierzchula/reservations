@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("content")
-<p>reservations</p>
+<p>Rezerwacje</p>
 
 <div class="d-flex justify-content-between w-100">
     <a class="d-flex" href="{{ route('reservations.indexdate', [ date("Y", strtotime( request()->route('month') . "/15/" . request()->route('year') . " -3 month") ), date("m", strtotime( request()->route('month') . "/15/" . request()->route('year') . " -3 months") )]) }}"> {{ date("Y/m", strtotime( request()->route('month') . "/15/" . request()->route('year') . " -3 months") ) }}</a>
@@ -28,7 +28,7 @@
     <div class="d-flex flex-column">
         @foreach ( $reservations as $key =>$reservations_aparment )
             <div class="p-2 no-wrap border border-dark" style="width:150px;white-space: nowrap;background:white;height:41px;overflow:hidden" title="{{ $key }}">
-                <a href="{{ route('reservations.create', $reservations_aparment['apartment_id']) }}">(add)</a>
+                <a href="{{ route('reservations.create', $reservations_aparment['apartment_id']) }}">(dodaj)</a>
                 {{ $key }} 
             </div>
         @endforeach

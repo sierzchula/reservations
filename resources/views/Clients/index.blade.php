@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("content")
-<p>Clients - <a href="{{ route('clients.create') }}">add new</a></p>
+<p>Klienci - <a href="{{ route('clients.create') }}">dodaj</a></p>
 
 <div class="d-flex flex-column">
    

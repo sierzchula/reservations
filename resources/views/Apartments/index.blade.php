@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section("content")
-<p>Apartments - <a href="{{ route('apartments.create') }}">add new</a></p>
+<p>Apartamenty - <a href="{{ route('apartments.create') }}">dodaj</a></p>
 
 <div class="d-flex flex-column">
    
