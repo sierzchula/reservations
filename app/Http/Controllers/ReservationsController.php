@@ -99,6 +99,9 @@ class ReservationsController extends Controller
         $data = $request->validate( $this->validateScheme );
         $data['start_date'] = strtotime( $data['start_date'] );
         $data['end_date'] = strtotime( $data['end_date'] );
+
+        // get apartment reservations and validate if possible to make a new one
+
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation = new Reservations($data);
@@ -148,6 +151,9 @@ class ReservationsController extends Controller
         $data = $request->validate( $this->validateScheme );
         $data['start_date'] = strtotime( $data['start_date'] );
         $data['end_date'] = strtotime( $data['end_date'] );
+
+        // get apartment reservations and validate if possible to make a new one
+
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation->update( $data );
