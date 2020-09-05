@@ -46,6 +46,11 @@ class ReservationsController extends Controller
             $reservations[ $apartment['name'] ] = array('apartment_id' => $apartment['id']);
         }
 
+        $clients_query = Clients::all();
+        foreach ($clients_query as $client) {
+            $clients[ $client['id'] ] = $client;
+        }
+
         if ( count($apartments_query) == 0 ) {
             return redirect()->route('apartments.create');
         }
@@ -58,6 +63,8 @@ class ReservationsController extends Controller
         */
 
         foreach ( $reservations_query as $reservation) {
+            $reservation['client_data'] = $clients[ $reservation['clients_id'] ];
+
             $reservations[
                 $apartments[
                     $reservation['apartments_id']

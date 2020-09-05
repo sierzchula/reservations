@@ -40,7 +40,7 @@
                 @foreach ( $reservations_aparment as $reservation)
                     @if ( gettype( $reservation ) == 'object' )
                         <a 
-                            title="{{date('Y-m-d',$reservation['start_date'])}} - {{date('Y-m-d',$reservation['end_date'])}}" 
+                            title="{{$reservation['client_data']['name']}} - {{date('Y-m-d',$reservation['start_date'])}} - {{date('Y-m-d',$reservation['end_date'])}}" 
                             href="{{ route('reservations.edit', $reservation['id']) }}" 
                             class="border border-dark p-1 btn
                             @switch($reservation['status'])
