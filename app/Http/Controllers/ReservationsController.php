@@ -100,7 +100,28 @@ class ReservationsController extends Controller
         $data['start_date'] = strtotime( $data['start_date'] );
         $data['end_date'] = strtotime( $data['end_date'] );
 
-        // get apartment reservations and validate if possible to make a new one
+        if ( $data['start_date'] >= $data['end_date'] ) {
+            return redirect()->back()->withErrors(['Nieprawidłowy zakres dat']);
+        }
+
+        $areAnyReservationInsideThatPeriode = Reservations::where('end_date', '<=', $data['end_date'] )
+            ->where('start_date', '>=', $data['start_date'])
+            ->where('apartments_id', $data['apartments_id'])
+            ->count();
+
+        $areAnyColisionWithTheBeginning = Reservations::where('end_date', '>', $data['start_date'] )
+        ->where('start_date', '<', $data['start_date'])
+        ->where('apartments_id', $data['apartments_id'])
+        ->count();
+
+        $areAnyColisionWithTheEnding = Reservations::where('start_date', '<', $data['end_date'] )
+        ->where('end_date', '>', $data['end_date'])
+        ->where('apartments_id', $data['apartments_id'])
+        ->count();
+
+        if ( $areAnyReservationInsideThatPeriode + $areAnyColisionWithTheBeginning + $areAnyColisionWithTheEnding != 0 ) {
+            return redirect()->back()->withErrors(['Apartament jest już zajęty w tym terminie, sprawdź wolne dni']);
+        }
 
         $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
