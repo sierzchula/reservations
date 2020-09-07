@@ -6,7 +6,7 @@ use App\Reservations;
 use Faker\Generator as Faker;
 
 $factory->define(Reservations::class, function (Faker $faker) {
-    $startDay = strtotime("+" . rand(1,28) - 14 . " day", time());
+    $startDay = strtotime(date('d-m-Y', time() ) . ( rand(0,1) ? " + " : " - "  ) . rand(1,14) . " days" );
     $days = rand(1,14);
     $endDay = strtotime("+" . $days . " day", $startDay);
     $priceDay = rand(50,250);
