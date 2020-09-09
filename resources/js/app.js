@@ -67,8 +67,22 @@ $( function() {
  
       return date;
     }
-    if ( $('#start_date_show').attr('date').length !== "undefined" ) {
+    if ( typeof ( $('#start_date_show').attr('date') ) !== "undefined" ) {
       $('#start_date_show').datepicker('setDate', $('#start_date_show').attr('date') );
       $('#end_date_show').datepicker('setDate', $('#end_date_show').attr('date') );
     }
   } );
+
+$("#search_clients").on('keyup', function() {
+  var search = $(this).val().toLowerCase();
+  //Go through each list item and hide if not match search
+
+  $(".clients_sub_container").each(function() {
+      if ($(this).find("a").html().toLowerCase().indexOf(search) != -1) {
+          $(this).show();
+      }
+      else {
+          $(this).hide();  
+      }
+  });    
+});
