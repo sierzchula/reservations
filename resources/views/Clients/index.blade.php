@@ -10,7 +10,7 @@
    
     @foreach ( $clients as $client )
     <div class="p-1 clients_sub_container">
-        <a class="btn bg-primary text-white" href="{{ route('clients.show', ['client' => $client['id']]) }}">{{ $client['name'] }} ( tel. {{ $client['phone'] }} / {{ $client['address'] }} )</a>
+        <a class="btn bg-primary text-white" href="{{ route('clients.show', ['client' => $client['id']]) }}">{{ $client['name'] }} ( telefon: {{ $client['phone'] }} / adres: {{ $client['address'] }} / email: {{ $client['email'] }} )</a>
     </div>
     @endforeach
    
