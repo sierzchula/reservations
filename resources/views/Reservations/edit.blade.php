@@ -49,7 +49,11 @@
             <input name="price_day" value="{{$reservation['price_day'] }}" type="number" step="any" required class="form-control" id="price_day">
         </div>
         <div class="form-group">
-            <label for="money_paid">{{__('wpłacona zaliczka')}}: ({{__('Wyliczona kwota końcowa')}}: {{$reservation['money_total']}})</label>
+            <label for="money_total">{{__('Koszt całego pobytu')}}:</label>
+            <input name="money_total" value="{{ $reservation['money_total'] }}" type="number" step="any" required class="form-control" id="money_total">
+        </div>
+        <div class="form-group">
+            <label for="money_paid">{{__('wpłacona zaliczka')}}:</label>
             <input name="money_paid" value="{{ $reservation['money_paid'] }}" type="number" step="any" required class="form-control" id="money_paid">
         </div>
         <div class="form-group">

@@ -48,6 +48,10 @@
             <input name="price_day" value="{{ old('price_day') }}" type="number" step="any" required class="form-control" id="price_day">
         </div>
         <div class="form-group">
+            <label for="money_total">{{__('Koszt całego pobytu')}}:</label>
+            <input name="money_total" value="{{ old('money_total') }}" type="number" step="any" required class="form-control" id="money_total">
+        </div>
+        <div class="form-group">
             <label for="money_paid">{{__('wpłacona zaliczka')}}:</label>
             <input name="money_paid" value="{{ old('money_paid') }}" type="number" step="any" required class="form-control" id="money_paid">
         </div>

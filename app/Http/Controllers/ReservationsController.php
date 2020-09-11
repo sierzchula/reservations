@@ -125,8 +125,6 @@ class ReservationsController extends Controller
         if ( $findCollisionsCount != 0 ) {
             return redirect()->back()->withErrors(['Apartament jest już zajęty w tym terminie, sprawdź wolne dni']);
         }
-
-        $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation = new Reservations($data);
         $reservation->save();
@@ -197,8 +195,6 @@ class ReservationsController extends Controller
         if ( $findCollisionsCount != 0 ) {
             return redirect()->back()->withErrors(['Apartament jest już zajęty w tym terminie, sprawdź wolne dni']);
         }
-
-        $data['money_total'] = ($data['end_date'] - $data['start_date'])/60/60/24 * $data['price_day'];
         
         $reservation->update( $data );
 
@@ -223,6 +219,7 @@ class ReservationsController extends Controller
         'start_date' => 'required',
         'end_date' => 'required',
         'price_day' => 'required',
+        'money_total' => 'required',
         'money_paid' => 'required',
         'status' => 'required',
         'adults' => 'required',
