@@ -28,11 +28,11 @@
         </div>
         <div class="form-group">
             <label for="address">{{__('Adres')}}:</label>
-            <input name="address" value="{{ $client['address'] }}" type="text" required max="255" class="form-control" id="address">
+            <input name="address" value="{{ $client['address'] }}" type="text" max="255" class="form-control" id="address">
         </div>
         <div class="form-group">
             <label for="email">{{__('E-mail')}}:</label>
-            <input name="email" value="{{ $client['email'] }}" type="email" required max="255" class="form-control" id="email">
+            <input name="email" value="{{ $client['email'] }}" type="email" max="255" class="form-control" id="email">
         </div>
         <div class="form-group">
             <label for="notes">{{__('Uwagi')}}:</label>

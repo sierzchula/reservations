@@ -105,8 +105,8 @@ class ClientsController extends Controller
     private $validateScheme = [
         'name' => ['required', 'max:255'],
         'phone' => ['required', 'max:16'],
-        'address' => ['required','max:255'],
-        'email' => ['required','email:rfc,dns'],
+        'address' => ['nullable','max:255'],
+        'email' => ['nullable','email:rfc,dns'],
         'notes' => 'nullable'
     ];
 }
