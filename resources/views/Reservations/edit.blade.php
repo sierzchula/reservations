@@ -36,13 +36,13 @@
         </div>
         <div class="form-group">
             <label for="start_date">{{__('Dzień przyjazdu')}}:</label>
-            <div id="start_date_show" date="{{ date('m/d/yy', $reservation['start_date']) }}"></div>
-            <input name="start_date" value="{{ date('m/d/yy', $reservation['start_date']) }}" type="hidden" required class="form-control" id="start_date">
+            <div id="start_date_show" date="{{ date('m/d/Y', $reservation['start_date']) }}"></div>
+            <input name="start_date" value="{{ date('m/d/Y', $reservation['start_date']) }}" type="hidden" required class="form-control" id="start_date">
         </div>
         <div class="form-group">
             <label for="end_date">{{__('Dzień wyjazdu')}}:</label>
-            <div id="end_date_show" date="{{ date('m/d/yy', $reservation['end_date']) }}"></div>
-            <input name="end_date" value="{{ date('m/d/yy', $reservation['end_date']) }}" type="hidden" required class="form-control" id="end_date">
+            <div id="end_date_show" date="{{ date('m/d/Y', $reservation['end_date']) }}"></div>
+            <input name="end_date" value="{{ date('m/d/Y', $reservation['end_date']) }}" type="hidden" required class="form-control" id="end_date">
         </div>
         <div class="form-group">
             <label for="price_day">{{__('Cena za dobę')}}:</label>
