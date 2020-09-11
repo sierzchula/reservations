@@ -29,7 +29,7 @@
             <label for="clients_id">{{__('Klient')}}:</label>
             <select name="clients_id" required class="form-control" id="clients_id">
                 @foreach( $clients as $client )
-                    <option value="{{ $client['id'] }}">{{ $client['name'] }} ( {{ $client['address'] }} )</option>
+                    <option value="{{ $client['id'] }}">{{ $client['name'] }} ( {{ $client['phone'] }} )</option>
                 @endforeach
             </select>
         </div>

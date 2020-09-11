@@ -30,7 +30,7 @@
             <label for="clients_id">{{__('Klient')}}: (<a href="{{ route('clients.show', ['client' => $reservation['clients_id']]) }}" >pokaż klienta</a>)</label>
             <select name="clients_id" required class="form-control" id="clients_id">
                 @foreach( $clients as $client )
-                    <option value="{{ $client['id'] }}" @if($reservation['clients_id'] == $client['id']) selected @endif >{{ $client['name'] }} ( {{ $client['address'] }} )</option>
+                    <option value="{{ $client['id'] }}" @if($reservation['clients_id'] == $client['id']) selected @endif >{{ $client['name'] }} ( {{ $client['phone'] }} )</option>
                 @endforeach
             </select>
         </div>
