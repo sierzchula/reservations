@@ -28,11 +28,11 @@
         @break
 
     @case('Cancelled')
-        <a class="btn bg-secondary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Anulowano - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
+        <a class="btn bg-primary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Płatność Booking - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
         @break
 
     @default
-        <a class="btn bg-primary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Niedostępny - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
+        <a class="btn bg-secondary text-white" href="{{ route('reservations.edit', $reservation['id']) }}">Niedostępny - {{ date('Y-m-d', $reservation['start_date']) }} - {{ date('Y-m-d', $reservation['end_date']) }}</a>
 @endswitch
             </p>
         </div>

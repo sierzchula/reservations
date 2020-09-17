@@ -57,11 +57,11 @@
                                         @break
 
                                     @case('Cancelled')
-                                            bg-secondary text-white
+                                            bg-primary text-white
                                         @break
 
                                     @default
-                                        bg-primary text-white
+                                        bg-secondary text-white
                                 @endswitch
                             " style="overflow:hidden;height:34px;position:absolute; 
                             @if ( date('m', $reservation['start_date']) == request()->route('month') )

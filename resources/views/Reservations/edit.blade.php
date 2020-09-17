@@ -62,7 +62,7 @@
                 <option value="Not paid" @if ( $reservation['status'] == 'Not paid' ) selected @endif>Brak wpłaty</option>
                 <option value="Partially paid"@if ( $reservation['status'] == 'Partially paid' ) selected @endif>Wpłacona zaliczka</option>
                 <option value="Fully paid"@if ( $reservation['status'] == 'Fully paid' ) selected @endif>Zapłacono</option>
-                <option value="Cancelled"@if ( $reservation['status'] == 'Cancelled' ) selected @endif>Anulowano</option>
+                <option value="Cancelled"@if ( $reservation['status'] == 'Cancelled' ) selected @endif>Płatność Booking</option>
                 <option value="Not available"@if ( $reservation['status'] == 'Not available' ) selected @endif>Niedostępny</option>
             </select>
         </div>

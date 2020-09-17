@@ -61,7 +61,7 @@
                 <option value="Not paid" selected>Brak wpłaty</option>
                 <option value="Partially paid">Wpłacona zaliczka</option>
                 <option value="Fully paid">Zapłacono</option>
-                <option value="Cancelled">Anulowano</option>
+                <option value="Cancelled">Płatność Booking</option>
                 <option value="Not available">Niedostępny</option>
             </select>
         </div>
