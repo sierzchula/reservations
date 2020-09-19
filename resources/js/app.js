@@ -85,4 +85,14 @@ $("#search_clients").on('keyup', function() {
           $(this).hide();  
       }
   });    
+
+  $(".clients_sub_container2 option").each(function() {
+    if ($(this).html().toLowerCase().indexOf(search) != -1) {
+        $(this).removeAttr('hidden');
+    }
+    else {
+        $(this).attr('hidden','hidden');  
+    }
+  }); 
+  
 });

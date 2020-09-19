@@ -27,7 +27,10 @@
         </div>
         <div class="form-group">
             <label for="clients_id">{{__('Klient')}}:</label>
-            <select name="clients_id" required class="form-control" id="clients_id">
+
+            <input type="text" id="search_clients" placeholder="dane klienta" />
+
+            <select name="clients_id" required class="form-control clients_sub_container2" size="3" id="clients_id">
                 @foreach( $clients as $client )
                     <option value="{{ $client['id'] }}">{{ $client['name'] }} ( {{ $client['phone'] }} )</option>
                 @endforeach
@@ -83,9 +86,5 @@
         </div>
     </form>
 </div>
-
-<script>
-{{-- update datepicker with disabled dates --}}
-</script>
 
 @endsection
