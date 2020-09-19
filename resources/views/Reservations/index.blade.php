@@ -19,6 +19,8 @@
                 <div class="" style="width:30px;text-align:center;
                     @if ( $i == date('d', time()) && date('m', time()) == request()->route('month') ) 
                         font-weight: 700;color:red;
+                    @elseif ( date( 'N', strtotime( request()->route('month') . "/" . $i . "/" . request()->route('year') ) ) >= 6 ) 
+                        font-weight: 700;color:blue;
                     @endif
                 ">{{$i}}</div>
             @endfor

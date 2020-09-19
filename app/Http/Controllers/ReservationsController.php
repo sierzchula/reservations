@@ -26,6 +26,8 @@ class ReservationsController extends Controller
         $year = $request->route('year');
         $month = $request->route('month');
 
+        $day_of_the_week = date( "N", strtotime("first day of $month/01/$year") );
+
         $reservations_query = Reservations::select([
             'id',
             'apartments_id',
@@ -74,8 +76,10 @@ class ReservationsController extends Controller
             [ $reservation['id'] ] = $reservation;
         }
 //dd($reservations);
-        return view('Reservations/index')
-            ->with('reservations', $reservations);
+        return view('Reservations/index', [
+            'reservations' => $reservations,
+            'day_of_the_week' => $day_of_the_week
+        ]);
     }
 
     /**
