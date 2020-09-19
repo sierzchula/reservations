@@ -20,13 +20,12 @@
                     @if ( $i == date('d', time()) && date('m', time()) == request()->route('month') ) 
                         font-weight: 700;color:red;
                     @elseif ( date( 'N', strtotime( request()->route('month') . "/" . $i . "/" . request()->route('year') ) ) >= 6 ) 
-                        font-weight: 700;color:blue;
+                        font-weight: 700;color:blue;background-color:yellow;
                     @endif
                 ">{{$i}}</div>
             @endfor
     </div>
-
-    <div class="d-flex">
+    <div class="d-flex" style="background-position-x: {{90 - ( ( $day_of_the_week - 1 ) * 30 )}}px;background-size: 210px;background-image: linear-gradient(to right, yellow 0px, yellow 60px, transparent 60px);">
         <div class="d-flex flex-column">
             @foreach ( $reservations as $key =>$reservations_aparment )
                 <div class="p-2 no-wrap border border-dark" style="width:150px;white-space: nowrap;background:white;height:41px;overflow:hidden" title="{{ $key }}">
