@@ -51,4 +51,36 @@
     @endif
 </div>
 
+<div class="container">
+        <div class="row">
+            <div class="col border text-center">Apartamenty</div>
+            <div class="col alert-dark text-center border">Rezerwacje</div>
+            <div class="col alert-dark text-center border">Suma dni</div>
+            <div class="col alert-dark text-center border">Suma należności</div>
+            <div class="col alert-dark text-center border">Teoretycznie dla 100%</div>
+            <div class="col alert-dark text-center border">Efektywność</div>
+        </div>
+    @foreach ( $apartments as $apartment )
+        <div class="row">
+            <div class="col alert-dark text-right border">{{ $apartment['name'] }}</div>
+            <div class="col text-center border">{{ $apartment['total_reservations'] }}</div>
+            <div class="col text-center border">{{ $apartment['days_reserved'] }}</div>
+            <div class="col text-center border">{{ $apartment['total_income'] }}</div>
+            <div class="col text-center border">{{ $apartment['total_possible_income'] }}</div>
+            <div class="col text-center border">{{ ($apartment['total_income']) ? round($apartment['total_income'] / $apartment['total_possible_income'] * 100) : 0 }}%</div>
+        </div>
+    @endforeach
+        <div class="row">
+            <div class="col alert-dark text-center border">SUMA</div>
+        </div>
+        <div class="row">
+            <div class="col border text-center">{{ $stats['count_apartments'] }}</div>
+            <div class="col text-center border">{{ $stats['overlapping']+$stats['internal'] }}</div>
+            <div class="col text-center border">{{ $stats['count_reserved_days'] }}</div>
+            <div class="col text-center border">{{ $stats['estimated_total_income'] }}</div>
+            <div class="col text-center border">Teoretycznie dla 100%</div>
+            <div class="col text-center border">{{ round($stats['percent_of_rent']) }}%</div>
+        </div>
+</div>
+
 @endsection
