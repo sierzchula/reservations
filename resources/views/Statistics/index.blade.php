@@ -22,4 +22,18 @@
     </div>
 </form>
 
+<div>
+    @if ( $stats )
+
+    <div>Ilość rezerwacji: {{ $stats['overlapping']+$stats['internal'] }}</div>
+    <div>Sięgające poza okres: {{$stats['overlapping']}}</div>
+    <div>Mieszczące się w okresie: {{ $stats['internal'] }}</div>
+
+    <div>Całkowita liczba możliwych dni rezerwacji na apartament: {{ $stats['count_available_days'] }}</div>
+    <div>Ilość apartmentów: {{ $stats['count_apartments'] }}</div>
+    <div>Teoretyczna ilość dni rezerwacji: {{ $stats['total_possible_days_of_rent'] }}
+    <div>Apartamenty posiadające rezerwacje: {{ $stats['total_reserved_apartments'] }}</div>
+    @endif
+</div>
+
 @endsection
