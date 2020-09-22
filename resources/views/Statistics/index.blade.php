@@ -47,7 +47,7 @@
 
     <div>Wartość rezerwacji: {{ $stats['estimated_total_income'] }}</div>
     <div>Obłożenie: {{ round($stats['percent_of_rent']) }}%</div>
-    <div>Średnia ilość dni rezerwacji: {{ $stats['average_length_of_reservation'] }}</div>
+    <div>Średnia ilość dni na rezerwację: {{ $stats['average_length_of_reservation'] }}</div>
     @endif
 </div>
 
