@@ -33,6 +33,11 @@
     <div>Ilość apartmentów: {{ $stats['count_apartments'] }}</div>
     <div>Teoretyczna ilość dni rezerwacji: {{ $stats['total_possible_days_of_rent'] }}
     <div>Apartamenty posiadające rezerwacje: {{ $stats['total_reserved_apartments'] }}</div>
+    <div>Ilość dni rezerwacji: {{ $stats['count_reserved_days'] }}</div>
+
+    <div>Wartość rezerwacji: {{ $stats['estimated_total_income'] }}</div>
+    <div>Obłożenie: {{ round($stats['percent_of_rent']) }}%</div>
+    <div>Średnia ilość dni rezerwacji: {{ $stats['average_length_of_reservation'] }}</div>
     @endif
 </div>
 

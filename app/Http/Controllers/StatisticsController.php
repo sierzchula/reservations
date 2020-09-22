@@ -24,8 +24,8 @@ class StatisticsController extends Controller
             $end_date = strtotime($request->end_date);
         }
 
-        $carbon_start_date = new Carbon( $start_date );
-        $carbon_end_date = new Carbon( $end_date );
+        $carbon_start_date = Carbon::createFromTimestamp( $start_date );
+        $carbon_end_date = Carbon::createFromTimestamp( $end_date );
 
         //get all the reservations that ends in selected date range, and starts in selected date range
         $reservations = Reservations::where('end_date', '>=', $start_date )
@@ -49,7 +49,7 @@ class StatisticsController extends Controller
             'estimated_total_income' => 0, //days in the timeframe * price per day
             'estimated_prepaid_value' => 0, //calculate if prepaid covers days that are in the timeframe based on price per day
             'payments_left' => 0, //how much left has to be paid, for the days that are in the timeframe
-            'procent_of_rent' => 0, //global value of total reserved days / possible days * number of apartments in %
+            'percent_of_rent' => 0, //global value of total reserved days / possible days * number of apartments in %
             'count_reserved_days' => 0, //total reserved days excluding overlap outside the timeframe
             'average_length_of_reservation' => 0, //all reservations lengths / amount
             'apartments' => [], //[apartments_id][total_income_per_apartment] = real money that has been paid for the apartments including prepaid in the selected timeframe
@@ -58,19 +58,41 @@ class StatisticsController extends Controller
 
         foreach ( $reservations as $reservation )
         {
+
+            $res_start_date = Carbon::createFromTimestamp( $reservation['start_date'] );
+            $res_end_date = Carbon::createFromTimestamp( $reservation['end_date'] );
+
             //check for overlap
-            if ( $reservation['start_date'] < $start_date || $reservation['end_date'] > $end_date )
+            if ( $reservation['start_date'] < $start_date ) //starts before
             {
                 $stats['overlapping']++;
+                $res_real_days_duration = $carbon_start_date->diffInDays( $res_end_date );
+            }
+            else if ( $reservation['end_date'] > $end_date ) //ends after
+            {
+                $stats['overlapping']++;
+                $res_real_days_duration = $carbon_end_date->diffInDays( $res_start_date );
             }
             else
             {
                 $stats['internal']++;
+                $res_real_days_duration = $res_start_date->diffInDays( $res_end_date );
             }
-            $stats['apartments'][ $reservation['apartments_id'] ] = $apartments[ $reservation['apartments_id'] ]; //save apartment data if has an reservation
+
+            if ( isset( $stats['apartments'][ $reservation['apartments_id'] ] ) )
+            {
+                $stats['apartments'][ $reservation['apartments_id'] ] = $apartments[ $reservation['apartments_id'] ]; //save apartment data if has an reservation
+                //$stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] = 0;
+            }
+            $stats['count_reserved_days'] += $res_real_days_duration; //total days of reservations placed
+            $stats['estimated_total_income'] += $res_real_days_duration * $reservation['price_day'];
+            //$stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] += $stats['estimated_total_income'];
+
         }
 
         $stats['total_reserved_apartments'] = count( $stats['apartments'] ); //reserved apartments count
+        $stats['average_length_of_reservation'] = round( $stats['count_reserved_days'] / ( $stats['overlapping'] + $stats['internal'] ) ); 
+        $stats['percent_of_rent'] = $stats['count_reserved_days'] / $stats['total_possible_days_of_rent'] * 100;
 
         return view('Statistics/index', [
             'start_date' => $start_date,
@@ -84,10 +106,7 @@ class StatisticsController extends Controller
 /*
     TODO:
     - wartosc zaliczek
-    - wartosc calkowita rezerwacji
     - calkowite wplacone pieniadze
-    - oblozenie w %
     - sredni przychod na apartament
-    - srednia dlugosc rozerwacji
 */
 }
