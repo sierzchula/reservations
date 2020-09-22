@@ -32,6 +32,10 @@ class StatisticsController extends Controller
             ->where('start_date', '<=', $end_date)
             ->get()->toArray();
 
+        if ( !$reservations ) {
+            return redirect()->back()->withErrors(['Brak rezerwacji we wskazanym okresie']);
+        }
+
         //create apartments list with an ID as a KEY
         $apartmentsDB = Apartments::All()->toArray();
         foreach ($apartmentsDB as $apartmentDB)
@@ -63,15 +67,20 @@ class StatisticsController extends Controller
             $res_end_date = Carbon::createFromTimestamp( $reservation['end_date'] );
 
             //check for overlap
-            if ( $reservation['start_date'] < $start_date ) //starts before
+            if ( $reservation['start_date'] < $start_date && $reservation['end_date'] < $end_date ) //starts before and ends in
             {
                 $stats['overlapping']++;
                 $res_real_days_duration = $carbon_start_date->diffInDays( $res_end_date );
             }
-            else if ( $reservation['end_date'] > $end_date ) //ends after
+            else if ( $reservation['start_date'] > $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
             {
                 $stats['overlapping']++;
                 $res_real_days_duration = $carbon_end_date->diffInDays( $res_start_date );
+            }
+            else if ( $reservation['start_date'] < $start_date && $reservation['end_date'] > $end_date ) //starts before and ends after
+            {
+                $stats['overlapping']++;
+                $res_real_days_duration = $carbon_start_date->diffInDays( $carbon_end_date );
             }
             else
             {
@@ -79,7 +88,7 @@ class StatisticsController extends Controller
                 $res_real_days_duration = $res_start_date->diffInDays( $res_end_date );
             }
 
-            if ( isset( $stats['apartments'][ $reservation['apartments_id'] ] ) )
+            if ( !isset( $stats['apartments'][ $reservation['apartments_id'] ] ) )
             {
                 $stats['apartments'][ $reservation['apartments_id'] ] = $apartments[ $reservation['apartments_id'] ]; //save apartment data if has an reservation
                 //$stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] = 0;
