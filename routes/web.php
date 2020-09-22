@@ -38,4 +38,5 @@ Route::group(["middleware"=>"auth"], function(){
     Route::delete('/clients/{client}','ClientsController@destroy')->name('clients.destroy');
 
     Route::get('/statistics','StatisticsController@index')->name('statistics.index');
+    Route::post('/statistics','StatisticsController@index')->name('statistics.index');
 });

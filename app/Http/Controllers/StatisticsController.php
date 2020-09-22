@@ -11,7 +11,19 @@ class StatisticsController extends Controller
 {
     public function index(Request $request)
     {
-        return view('Statistics/index');
+
+        if ( !$request->start_date || !$request->end_date ) {
+            $start_date = strtotime("first day of this month");
+            $end_date = strtotime("last day of this month");
+        }else{
+            $start_date = strtotime($request->start_date);
+            $end_date = strtotime($request->end_date);
+        }
+
+        return view('Statistics/index', [
+            'start_date' => $start_date,
+            'end_date' => $end_date
+        ]);
     }
 
 /*
