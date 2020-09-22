@@ -53,7 +53,7 @@ class StatisticsController extends Controller
             'count_reserved_days' => 0, //total reserved days excluding overlap outside the timeframe
             'average_length_of_reservation' => 0, //all reservations lengths / amount
             'apartments' => [], //[apartments_id][total_income_per_apartment] = real money that has been paid for the apartments including prepaid in the selected timeframe
-            'total_reserved_apartments' => 0
+            'total_reserved_apartments' => 0 //number of reserved apartments
         ];
 
         foreach ( $reservations as $reservation )
@@ -70,13 +70,13 @@ class StatisticsController extends Controller
             $stats['apartments'][ $reservation['apartments_id'] ] = $apartments[ $reservation['apartments_id'] ]; //save apartment data if has an reservation
         }
 
-        $stats['total_reserved_apartments'] = count( $stats['apartments'] );
+        $stats['total_reserved_apartments'] = count( $stats['apartments'] ); //reserved apartments count
 
         return view('Statistics/index', [
             'start_date' => $start_date,
             'end_date' => $end_date,
             'stats' => $stats,
-            'reservatopms' => $reservations,
+            'reservations' => $reservations,
             'apartments' => $apartments
         ]);
     }
