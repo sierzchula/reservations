@@ -33,7 +33,10 @@ class StatisticsController extends Controller
             ->get()->toArray();
 
         if ( !$reservations ) {
-            return redirect()->back()->withErrors(['Brak rezerwacji we wskazanym okresie']);
+            return view('Statistics/index', [
+                'start_date' => $start_date,
+                'end_date' => $end_date
+            ]);
         }
 
         //create apartments list with an ID as a KEY
@@ -150,7 +153,6 @@ class StatisticsController extends Controller
             'start_date' => $start_date,
             'end_date' => $end_date,
             'stats' => $stats,
-            'reservations' => $reservations,
             'apartments' => $apartments
         ]);
     }

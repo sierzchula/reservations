@@ -32,7 +32,7 @@
     </div>
 </form>
 
-@if ( $stats )
+@if ( isset($stats) )
     <div class="container">
         <div class="row">
             <div class="col border text-center">Apartamenty</div>
