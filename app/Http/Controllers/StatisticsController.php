@@ -63,7 +63,8 @@ class StatisticsController extends Controller
             'count_reserved_days' => 0, //total reserved days excluding overlap outside the timeframe
             'average_length_of_reservation' => 0, //all reservations lengths / amount
             'apartments' => [], //[apartments_id][total_income_per_apartment] = real money that has been paid for the apartments including prepaid in the selected timeframe
-            'total_reserved_apartments' => 0 //number of reserved apartments
+            'total_reserved_apartments' => 0, //number of reserved apartments
+            'total_teoretical_income' => 0 //income when 100% apartments rented, does not count empty
         ];
 
         foreach ( $reservations as $reservation )
@@ -77,26 +78,44 @@ class StatisticsController extends Controller
             if ( $reservation['start_date'] < $start_date && $reservation['end_date'] < $end_date ) //starts before and ends in
             {
                 $res_real_days_duration = $carbon_start_date->diffInDays( $res_end_date );
-                ($res_real_days_duration > 0 ) ? $stats['overlapping']++ : false;
-                //prepaid value - ( price per day * days before the timeframe )
+                if ( $res_real_days_duration > 0 )
+                {
+                    $stats['overlapping']++;
+                    //prepaid value - ( price per day * days before the timeframe )
+                    $res_value_of_overlap = ( $res_full_days_duration - $res_real_days_duration ) * $reservation['price_day'];
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $reservation['price_day']) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] - $res_value_of_overlap ;
+                }
             }
             else if ( $reservation['start_date'] > $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
             {
                 $res_real_days_duration = $carbon_end_date->diffInDays( $res_start_date );
-                ($res_real_days_duration > 0 ) ? $stats['overlapping']++ : false;
-                //prepaid value <= (days in the timeframe * price per day)
+                if ( $res_real_days_duration > 0 )
+                {
+                    $stats['overlapping']++;
+                    //prepaid value <= (days in the timeframe * price per day)
+                    $res_paid = ( $reservation['money_paid'] >= $res_real_days_duration * $reservation['price_day'] ) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] ;
+                }
             }
             else if ( $reservation['start_date'] < $start_date && $reservation['end_date'] > $end_date ) //starts before and ends after
             {
                 $res_real_days_duration = $carbon_start_date->diffInDays( $carbon_end_date );
-                ($res_real_days_duration > 0 ) ? $stats['overlapping']++ : false;
-                //prepaid value - ( price per day * days before the timeframe ) <= price per day * days in the timeframe
+                if ( $res_real_days_duration > 0 )
+                {
+                    $stats['overlapping']++;
+                    //prepaid value - ( price per day * days before the timeframe ) <= price per day * days in the timeframe
+                    $res_value_of_overlap = $res_start_date->diffInDays( $carbon_start_date ) * $reservation['price_day'];
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $reservation['price_day']) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] - $res_value_of_overlap ;
+                }
             }
             else
             {
                 $res_real_days_duration = $res_start_date->diffInDays( $res_end_date );
-                ($res_real_days_duration > 0 ) ? $stats['internal']++ : false;
-                //prepaid value <= (days in the timeframe * price per day)
+                if ( $res_real_days_duration > 0 )
+                {
+                    $stats['internal']++;
+                    //prepaid value <= (days in the timeframe * price per day)
+                    $res_paid = $reservation['money_paid'];
+                }
             }
 
             if ( !isset( $stats['apartments'][ $reservation['apartments_id'] ] ) )
@@ -107,12 +126,17 @@ class StatisticsController extends Controller
             $stats['count_reserved_days'] += $res_real_days_duration; //total days of reservations placed
             $stats['estimated_total_income'] += $res_real_days_duration * $reservation['price_day']; //total income that should be paid for all the apartments
             $stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] += $res_real_days_duration * $reservation['price_day']; ////total income that should be paid for the specific apartment
-
             //add values per apartment
             $apartments[ $reservation['apartments_id'] ]['days_reserved'] += $res_real_days_duration;
-            ($res_real_days_duration > 0 ) ? $apartments[ $reservation['apartments_id'] ]['total_reservations']++ : false ;
             $apartments[ $reservation['apartments_id'] ]['total_income'] += $res_real_days_duration * $reservation['price_day'];
-            ($res_real_days_duration > 0 ) ? $apartments[ $reservation['apartments_id'] ]['total_possible_income'] += $res_full_days_duration * $reservation['price_day'] : false;
+            if ( $res_real_days_duration > 0 )
+            {
+                $apartments[ $reservation['apartments_id'] ]['total_reservations']++;
+                $apartments[ $reservation['apartments_id'] ]['total_paid'] += $res_paid;
+                $stats['estimated_prepaid_value'] += $res_paid;
+                $apartments[ $reservation['apartments_id'] ]['total_possible_income'] += $stats['count_available_days'] * $reservation['price_day'];
+            }
+            
             //total_prepaid, total_paid
         }
 
@@ -128,10 +152,4 @@ class StatisticsController extends Controller
             'apartments' => $apartments
         ]);
     }
-
-/*
-    TODO:
-    - wartosc zaliczek
-    - calkowite wplacone pieniadze
-*/
 }
