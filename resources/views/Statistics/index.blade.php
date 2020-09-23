@@ -32,33 +32,15 @@
     </div>
 </form>
 
-<div>
-    @if ( $stats )
-
-    <div>Ilość rezerwacji: {{ $stats['overlapping']+$stats['internal'] }}</div>
-    <div>Sięgające poza okres: {{$stats['overlapping']}}</div>
-    <div>Mieszczące się w okresie: {{ $stats['internal'] }}</div>
-
-    <div>Całkowita liczba możliwych dni rezerwacji na apartament: {{ $stats['count_available_days'] }}</div>
-    <div>Ilość apartmentów: {{ $stats['count_apartments'] }}</div>
-    <div>Teoretyczna ilość dni rezerwacji: {{ $stats['total_possible_days_of_rent'] }}
-    <div>Apartamenty posiadające rezerwacje: {{ $stats['total_reserved_apartments'] }}</div>
-    <div>Ilość dni rezerwacji: {{ $stats['count_reserved_days'] }}</div>
-
-    <div>Wartość rezerwacji: {{ $stats['estimated_total_income'] }}</div>
-    <div>Obłożenie: {{ round($stats['percent_of_rent']) }}%</div>
-    <div>Średnia ilość dni na rezerwację: {{ $stats['average_length_of_reservation'] }}</div>
-    @endif
-</div>
-
-<div class="container">
+@if ( $stats )
+    <div class="container">
         <div class="row">
             <div class="col border text-center">Apartamenty</div>
             <div class="col alert-dark text-center border">Rezerwacje</div>
             <div class="col alert-dark text-center border">Suma dni</div>
             <div class="col alert-dark text-center border">Wpływy</div>
             <div class="col alert-dark text-center border">Suma należności</div>
-            <div class="col alert-dark text-center border">Efektywność</div>
+            <div class="col alert-dark text-center border">Obłożenie</div>
         </div>
     @foreach ( $apartments as $apartment )
         <div class="row">
@@ -74,13 +56,14 @@
             <div class="col alert-dark text-center border">SUMA</div>
         </div>
         <div class="row">
-            <div class="col border text-center">{{ $stats['count_apartments'] }}</div>
+            <div class="col border text-center">Apartamentów: {{ $stats['count_apartments'] }}<br>(z rezerwacją: {{ $stats['total_reserved_apartments'] }})</div>
             <div class="col text-center border">{{ $stats['overlapping']+$stats['internal'] }}</div>
-            <div class="col text-center border">{{ $stats['count_reserved_days'] }}</div>
+            <div class="col text-center border">{{ $stats['count_reserved_days'] }}<br>(średnia: {{ $stats['average_length_of_reservation'] }})</div>
             <div class="col text-center border">{{ $stats['estimated_prepaid_value'] }}</div>
             <div class="col text-center border">{{ $stats['estimated_total_income'] }}</div>
             <div class="col text-center border">{{ round($stats['percent_of_rent']) }}%</div>
         </div>
-</div>
+    </div>
+@endif
 
 @endsection
