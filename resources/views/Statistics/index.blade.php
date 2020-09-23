@@ -33,7 +33,7 @@
 </form>
 
 @if ( isset($stats) )
-    <div class="container">
+    <div class="container" style="width: 1110px !important;max-width: 1110px !important;">
         <div class="row">
             <div class="col border text-center">Apartamenty</div>
             <div class="col alert-dark text-center border">Rezerwacje</div>
