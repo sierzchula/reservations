@@ -88,7 +88,7 @@ class StatisticsController extends Controller
                     $stats['overlapping']++;
                     //prepaid value - ( price per day * days before the timeframe )
                     $res_value_of_overlap = ( $res_full_days_duration - $res_real_days_duration ) * $price_day;
-                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : $reservation['money_paid'] - $res_value_of_overlap ;
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : ($reservation['money_paid'] - $res_value_of_overlap < 0) ? 0 : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
             else if ( $reservation['start_date'] > $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
@@ -109,7 +109,7 @@ class StatisticsController extends Controller
                     $stats['overlapping']++;
                     //prepaid value - ( price per day * days before the timeframe ) <= price per day * days in the timeframe
                     $res_value_of_overlap = $res_start_date->diffInDays( $carbon_start_date ) * $price_day;
-                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : $reservation['money_paid'] - $res_value_of_overlap ;
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : ($reservation['money_paid'] - $res_value_of_overlap < 0) ? 0 : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
             else
