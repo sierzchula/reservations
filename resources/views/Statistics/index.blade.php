@@ -45,11 +45,11 @@
     @foreach ( $apartments as $apartment )
         <div class="row">
             <div class="col alert-dark text-right border">{{ $apartment['name'] }}</div>
-            <div class="col text-center border">{{ $apartment['total_reservations'] }}</div>
-            <div class="col text-center border">{{ $apartment['days_reserved'] }}</div>
-            <div class="col text-center border">{{ $apartment['total_paid'] }}</div>
-            <div class="col text-center border">{{ $apartment['total_income'] }}</div>
-            <div class="col text-center border">{{ ($apartment['total_income']) ? round($apartment['days_reserved'] / $stats['count_available_days'] * 100) : 0 }}%</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ $apartment['total_reservations'] }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ $apartment['days_reserved'] }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ $apartment['total_paid'] }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ $apartment['total_income'] }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ ($apartment['total_income']) ? round($apartment['days_reserved'] / $stats['count_available_days'] * 100) : 0 }}%</div>
         </div>
     @endforeach
         <div class="row">
