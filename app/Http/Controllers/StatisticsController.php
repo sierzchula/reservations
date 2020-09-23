@@ -73,6 +73,8 @@ class StatisticsController extends Controller
             $res_start_date = Carbon::createFromTimestamp( $reservation['start_date'] );
             $res_end_date = Carbon::createFromTimestamp( $reservation['end_date'] );
             $res_full_days_duration = $res_start_date->diffInDays( $res_end_date );
+            $price_day = $reservation['money_total'] / $res_full_days_duration; //calculations based on computed price per day from duration and final price
+            //$price_day = $reservation['price_day']; //calculations based on database price per day
 
             //check for overlap
             if ( $reservation['start_date'] < $start_date && $reservation['end_date'] < $end_date ) //starts before and ends in
@@ -82,8 +84,8 @@ class StatisticsController extends Controller
                 {
                     $stats['overlapping']++;
                     //prepaid value - ( price per day * days before the timeframe )
-                    $res_value_of_overlap = ( $res_full_days_duration - $res_real_days_duration ) * $reservation['price_day'];
-                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $reservation['price_day']) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] - $res_value_of_overlap ;
+                    $res_value_of_overlap = ( $res_full_days_duration - $res_real_days_duration ) * $price_day;
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
             else if ( $reservation['start_date'] > $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
@@ -93,7 +95,7 @@ class StatisticsController extends Controller
                 {
                     $stats['overlapping']++;
                     //prepaid value <= (days in the timeframe * price per day)
-                    $res_paid = ( $reservation['money_paid'] >= $res_real_days_duration * $reservation['price_day'] ) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] ;
+                    $res_paid = ( $reservation['money_paid'] >= $res_real_days_duration * $price_day ) ? $res_real_days_duration * $price_day : $reservation['money_paid'] ;
                 }
             }
             else if ( $reservation['start_date'] < $start_date && $reservation['end_date'] > $end_date ) //starts before and ends after
@@ -103,8 +105,8 @@ class StatisticsController extends Controller
                 {
                     $stats['overlapping']++;
                     //prepaid value - ( price per day * days before the timeframe ) <= price per day * days in the timeframe
-                    $res_value_of_overlap = $res_start_date->diffInDays( $carbon_start_date ) * $reservation['price_day'];
-                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $reservation['price_day']) ? $res_real_days_duration * $reservation['price_day'] : $reservation['money_paid'] - $res_value_of_overlap ;
+                    $res_value_of_overlap = $res_start_date->diffInDays( $carbon_start_date ) * $price_day;
+                    $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
             else
@@ -124,17 +126,17 @@ class StatisticsController extends Controller
                 $stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] = 0;
             }
             $stats['count_reserved_days'] += $res_real_days_duration; //total days of reservations placed
-            $stats['estimated_total_income'] += $res_real_days_duration * $reservation['price_day']; //total income that should be paid for all the apartments
-            $stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] += $res_real_days_duration * $reservation['price_day']; ////total income that should be paid for the specific apartment
+            $stats['estimated_total_income'] += $res_real_days_duration * $price_day; //total income that should be paid for all the apartments
+            $stats['apartments'][ $reservation['apartments_id'] ][' total_reservations_value_adjusted '] += $res_real_days_duration * $price_day; ////total income that should be paid for the specific apartment
             //add values per apartment
             $apartments[ $reservation['apartments_id'] ]['days_reserved'] += $res_real_days_duration;
-            $apartments[ $reservation['apartments_id'] ]['total_income'] += $res_real_days_duration * $reservation['price_day'];
+            $apartments[ $reservation['apartments_id'] ]['total_income'] += $res_real_days_duration * $price_day;
             if ( $res_real_days_duration > 0 )
             {
                 $apartments[ $reservation['apartments_id'] ]['total_reservations']++;
-                $apartments[ $reservation['apartments_id'] ]['total_paid'] += $res_paid;
-                $stats['estimated_prepaid_value'] += $res_paid;
-                $apartments[ $reservation['apartments_id'] ]['total_possible_income'] += $stats['count_available_days'] * $reservation['price_day'];
+                $apartments[ $reservation['apartments_id'] ]['total_paid'] += round($res_paid, 2);
+                $stats['estimated_prepaid_value'] += round($res_paid, 2);
+                $apartments[ $reservation['apartments_id'] ]['total_possible_income'] += $stats['count_available_days'] * $price_day;
             }
             
             //total_prepaid, total_paid

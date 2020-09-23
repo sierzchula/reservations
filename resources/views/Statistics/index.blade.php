@@ -47,8 +47,8 @@
             <div class="col alert-dark text-right border">{{ $apartment['name'] }}</div>
             <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ $apartment['total_reservations'] }}</div>
             <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ $apartment['days_reserved'] }}</div>
-            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ $apartment['total_paid'] }}</div>
-            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ $apartment['total_income'] }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ round( $apartment['total_paid'], 2) }}</div>
+            <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif @if ( $apartment['total_paid'] < $apartment['total_income'] ) text-danger @elseif ( $apartment['total_paid'] != 0 ) text-success @endif">{{ round( $apartment['total_income'], 2 ) }}</div>
             <div class="col text-center border @if ( $apartment['total_reservations'] == 0 ) text-light @endif">{{ ($apartment['total_income']) ? round($apartment['days_reserved'] / $stats['count_available_days'] * 100) : 0 }}%</div>
         </div>
     @endforeach
@@ -59,8 +59,8 @@
             <div class="col border text-center">Apartamentów: {{ $stats['count_apartments'] }}<br>(z rezerwacją: {{ $stats['total_reserved_apartments'] }})</div>
             <div class="col text-center border">{{ $stats['overlapping']+$stats['internal'] }}</div>
             <div class="col text-center border">{{ $stats['count_reserved_days'] }}<br>(średnia: {{ $stats['average_length_of_reservation'] }})</div>
-            <div class="col text-center border">{{ $stats['estimated_prepaid_value'] }}</div>
-            <div class="col text-center border">{{ $stats['estimated_total_income'] }}</div>
+            <div class="col text-center border">{{ round( $stats['estimated_prepaid_value'], 2) }}</div>
+            <div class="col text-center border">{{ round( $stats['estimated_total_income'], 2) }}</div>
             <div class="col text-center border">{{ round($stats['percent_of_rent']) }}%</div>
         </div>
     </div>
