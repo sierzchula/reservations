@@ -39,8 +39,8 @@
             <div class="col alert-dark text-center border">Rezerwacje</div>
             <div class="col alert-dark text-center border">Suma dni</div>
             <div class="col alert-dark text-center border">Wpływy</div>
-            <div class="col alert-dark text-center border">Suma należności</div>
             <div class="col alert-dark text-center border">Zaległości</div>
+            <div class="col alert-dark text-center border">Suma należności</div>
             <div class="col alert-dark text-center border">Obłożenie</div>
         </div>
     @foreach ( $apartments as $apartment )
