@@ -50,6 +50,7 @@ class StatisticsController extends Controller
             $apartments[ $apartmentDB['id'] ]['total_prepaid'] = 0;
             $apartments[ $apartmentDB['id'] ]['total_paid'] = 0;
             $apartments[ $apartmentDB['id'] ]['days_reserved'] = 0;
+            $apartments[ $apartmentDB['id'] ]['payments_left'] = 0;
         }
 
         //default values
@@ -134,6 +135,8 @@ class StatisticsController extends Controller
             //add values per apartment
             $apartments[ $reservation['apartments_id'] ]['days_reserved'] += $res_real_days_duration;
             $apartments[ $reservation['apartments_id'] ]['total_income'] += $res_real_days_duration * $price_day;
+            $apartments[ $reservation['apartments_id'] ]['payments_left'] += $res_real_days_duration * $price_day - $res_paid;
+
             if ( $res_real_days_duration > 0 )
             {
                 $apartments[ $reservation['apartments_id'] ]['total_reservations']++;
@@ -148,6 +151,7 @@ class StatisticsController extends Controller
         $stats['total_reserved_apartments'] = count( $stats['apartments'] ); //reserved apartments count
         $stats['average_length_of_reservation'] = round( $stats['count_reserved_days'] / ( $stats['overlapping'] + $stats['internal'] ) ); //average reservation length
         $stats['percent_of_rent'] = $stats['count_reserved_days'] / $stats['total_possible_days_of_rent'] * 100; //effectivnes of renting
+        $stats['payments_left'] = $stats['estimated_total_income'] - $stats['estimated_prepaid_value'];
 
         return view('Statistics/index', [
             'start_date' => $start_date,
