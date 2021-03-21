@@ -79,6 +79,7 @@ class StatisticsController extends Controller
             $res_full_days_duration = $res_start_date->diffInDays( $res_end_date );
             $price_day = $reservation['money_total'] / $res_full_days_duration; //calculations based on computed price per day from duration and final price
             //$price_day = $reservation['price_day']; //calculations based on database price per day
+            $res_paid = 0; //initiate variable because it's required but not always made by IFs
 
             //check for overlap
             if ( $reservation['start_date'] < $start_date && $reservation['end_date'] < $end_date ) //starts before and ends in
