@@ -149,6 +149,8 @@ class StatisticsController extends Controller
             //total_prepaid, total_paid
         }
 
+        $stats['overlapping'] = ( $stats['overlapping'] == 0 ) ? 1 : $stats['overlapping']; //division by zero avoidance
+
         $stats['total_reserved_apartments'] = count( $stats['apartments'] ); //reserved apartments count
         $stats['average_length_of_reservation'] = round( $stats['count_reserved_days'] / ( $stats['overlapping'] + $stats['internal'] ) ); //average reservation length
         $stats['percent_of_rent'] = $stats['count_reserved_days'] / $stats['total_possible_days_of_rent'] * 100; //effectivnes of renting
