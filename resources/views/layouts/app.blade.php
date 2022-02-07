@@ -59,7 +59,10 @@
                                 <a class="nav-link" href="{{ route('apartments.index') }}">{{ __('Apartamenty') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('statistics.index') }}">{{ __('Statystyki') }}</a>
+                                <a class="nav-link" href="{{ route('statistics.index') }}">{{ __('Statystyka') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('backup.index') }}">{{ __('Zrób kopię bazy') }}</a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -73,7 +76,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Wyloguj') }}
                                     </a>
-
+                                    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

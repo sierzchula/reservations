@@ -39,4 +39,6 @@ Route::group(["middleware"=>"auth"], function(){
 
     Route::get('/statistics','StatisticsController@index')->name('statistics.index');
     Route::post('/statistics','StatisticsController@index')->name('statistics.index');
+
+    Route::get('/backup','BackupController@index')->name('backup.index');
 });
