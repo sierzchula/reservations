@@ -82,7 +82,7 @@ class StatisticsController extends Controller
             $res_paid = 0; //initiate variable because it's required but not always made by IFs
 
             //check for overlap
-            if ( $reservation['start_date'] < $start_date && $reservation['end_date'] < $end_date ) //starts before and ends in
+            if ( $reservation['start_date'] < $start_date && $reservation['end_date'] <= $end_date ) //starts before and ends in
             {
                 $res_real_days_duration = $carbon_start_date->diffInDays( $res_end_date );
                 if ( $res_real_days_duration > 0 )
@@ -93,7 +93,7 @@ class StatisticsController extends Controller
                     $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : ($reservation['money_paid'] - $res_value_of_overlap < 0) ? 0 : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
-            else if ( $reservation['start_date'] > $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
+            else if ( $reservation['start_date'] >= $start_date && $reservation['end_date'] > $end_date ) //starts in and ends after
             {
                 $res_real_days_duration = $carbon_end_date->diffInDays( $res_start_date );
                 if ( $res_real_days_duration > 0 )
@@ -114,7 +114,7 @@ class StatisticsController extends Controller
                     $res_paid = ( $reservation['money_paid'] - $res_value_of_overlap >= $res_real_days_duration * $price_day) ? $res_real_days_duration * $price_day : ($reservation['money_paid'] - $res_value_of_overlap < 0) ? 0 : $reservation['money_paid'] - $res_value_of_overlap ;
                 }
             }
-            else
+            else //starts in and ends in
             {
                 $res_real_days_duration = $res_start_date->diffInDays( $res_end_date );
                 if ( $res_real_days_duration > 0 )
@@ -149,10 +149,8 @@ class StatisticsController extends Controller
             //total_prepaid, total_paid
         }
 
-        $stats['overlapping'] = ( $stats['overlapping'] == 0 ) ? 1 : $stats['overlapping']; //division by zero avoidance
-
         $stats['total_reserved_apartments'] = count( $stats['apartments'] ); //reserved apartments count
-        $stats['average_length_of_reservation'] = round( $stats['count_reserved_days'] / ( $stats['overlapping'] + $stats['internal'] ) ); //average reservation length
+        $stats['average_length_of_reservation'] = round( $stats['count_reserved_days'] / $stats['total_reserved_apartments'] ); //average reservation length
         $stats['percent_of_rent'] = $stats['count_reserved_days'] / $stats['total_possible_days_of_rent'] * 100; //effectivnes of renting
         $stats['payments_left'] = $stats['estimated_total_income'] - $stats['estimated_prepaid_value'];
 
